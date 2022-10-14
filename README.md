@@ -1,2 +1,2 @@
 # agroease
-Making agriculture relative and simple
+Making student life easy and simple
