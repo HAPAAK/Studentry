@@ -1,0 +1,32 @@
+<%- include("partials/header2", {title: "Student Login"}) %>
+
+    <% if(failure) { %>
+        <div class="alert alert-danger" role="alert">
+            <%= msg %>
+        </div>
+    <% } %>
+
+    <form class="login-form" action="/student-login" method="post">
+        <h1>Student Login</h1>
+    
+        <div class="txtb">
+            <input name="regno" type="text" placeholder="Registration Number" id="regno">
+        </div>
+
+        <div class="txtb">
+        <input name="password" type="password" placeholder="Password" id="password">
+        </div>
+
+        <div class="show-password">
+        <input type="checkbox" id="password-checkbox" name="password-checkbox" value="invisible">
+        <label for="password-checkbox"> Show password</label><br>
+        </div>
+
+        <button type="login" class="btn btn-outline-light btn-lg btn-block login-btn">Login</button>
+
+        <div class="bottom-txt">
+            <p>Don't have an account? <a href="/student-signup">Sign Up</a></p>
+        </div>
+    </form>
+
+<%- include("partials/footer2") %>

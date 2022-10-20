@@ -1,0 +1,48 @@
+
+<%- include("partials/header", {title: "Home"}) %>
+
+<body>
+    <header class="site-header">
+        <div class="header-bar">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-10 col-lg-4">
+                        <h1 class="site-branding flex">
+                            <a href="#">Welcome to Studentry</a>
+                        </h1>
+                    </div>
+
+                    <div class="col-2 col-lg-8">
+                        <nav class="site-navigation">
+
+                        </nav><!-- .site-navigation -->
+                    </div><!-- .col-12 -->
+                </div><!-- .row -->
+            </div><!-- container-fluid -->
+        </div><!-- header-bar -->
+    </header><!-- .site-header -->
+
+    <div class="hero-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 offset-lg-2 col-lg-10">
+                    <div class="entry-header">
+                        <h2>One stop for all your needs</h2>
+                        <div class="entry-meta-date">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 ">
+                    <div class="entry-footer">
+                        <a href="studentlogin.ejs" class="btn">Sign in as Student</a>
+                        <a href="counsellorlogin.ejs" class="btn current">Sign in as Counsellor</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<%- include("partials/footer") %>
