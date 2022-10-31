@@ -34,9 +34,13 @@ const StudentSchema = new mongoose.Schema({
         type:String,
         required:true,
         unique:true
+    },
+    createdAt:{
+        type:Date,
+        default: Date.now
     }
 })
 
-const StudentRegister = new mongoose.model("StudentRegister",StudentSchema);
+const StudentRegister = new mongoose.model("studentregisters",StudentSchema);
 
 module.exports= StudentRegister;

@@ -1,0 +1,50 @@
+<%- include("partials/header", {title: "Studenttindex"}) %>
+<%- include("partials/navbar", {title:"Home"}) %>
+
+<div class="main-content">
+    <div class="container">
+        <div class="entry-header">
+            <div class="entry-title">
+                <h2>Add new event</h2>
+            </div><!-- -->
+        </div><!-- -->
+    </div><!-- container -->
+</div><!-- main-content -->
+
+
+<div style="width: 70%; margin: 100px auto;">
+    <form action="/addevent" method=post>
+        <input type="button" id="addnote" class="btn btn-primary" value="Add Note" onclick="shownoteentry()"><br>
+        <div class="form-group">
+         <label for="text-box" style="color: black; font-weight: bold;">Register Number</label>
+         <input name="regno" type="text"  class = "form-control" id="text-box" value="<%= registernumber %>" >
+        </div>
+
+        <div class="form-group">
+          <label for="text-box" style="color: black; font-weight: bold;">Event Name</label>
+          <input type="text" name="eventname" class="form-control" id="text-box" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="big-text-box" style="color: black; font-weight: bold;">Event Description</label>
+            <textarea class="form-control" name="eventdesc" id="text-box" rows="5" autocomplete="off"></textarea>
+        </div>
+
+        <div id="eventsdetails">
+        <div class="form-group">
+            <label for="text-box" style="color: black; font-weight: bold;">Venue</label>
+            <input type="text" name="eventlocation" class="form-control" id="text-box" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="text-box" style="color: black; font-weight: bold;">Date</label>
+            <input type="date" name="eventdate" class="form-control" id="start" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="text-box" style="color: black; font-weight: bold;">Email for Reminder</label>
+            <input type="email" name="reminderemail" class="form-control" id="text-box" autocomplete="off">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Add the event</button>
+    </form>
+</div>
+
+<%- include("partials/footer") %>

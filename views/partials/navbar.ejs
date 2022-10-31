@@ -1,0 +1,52 @@
+<% if(failure) { %>
+    <div class="alert alert-danger" role="alert">
+        <%= msg %>
+    </div>
+<% } %>
+
+<body class = "about-us">
+    <header class="site-header">
+        <div class="header-bar">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-10 col-lg-3">
+                        <h1 class="site-branding flex">
+                            <a href="/studentindex">Studentry</a>
+                        </h1>
+                    </div>
+
+                    <div class="col-2 col-lg-9">
+                        <nav class="site-navigation">
+
+                            <ul>
+                                <li><a href="/studentindex">Home</a></li>
+                                <li><a href="/chat">Chat with Friend</a></li>
+                                <li><a href="/events">Calendar</a></li>
+                                <li><a href="/artists">Counselling</a></li>
+                                <li><a href="/profile">About</a></li>
+                                <li><a href="/studentprofile">Profile</a></li>
+                                <li><a href="/logout">Logout</a></li>
+                            </ul><!-- flex -->
+                        </nav><!-- .site-navigation -->
+                    </div><!-- .col-12 -->
+                </div><!-- .row -->
+            </div><!-- container-fluid -->
+        </div><!-- header-bar -->
+    </header><!-- .site-header -->
+
+    <div class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="entry-header">
+                        <h2 class="entry-title"></h2>
+
+                        <ul class="breadcrumbs flex align-items-center">
+                            <li><a href="#"><%= registernumber %></a></li>
+                            <li><%= title %></li>
+                        </ul><!-- .breadcrumbs -->
+                    </div><!-- .entry-header -->
+                </div><!-- .col-12 -->
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </div><!-- .page-header -->

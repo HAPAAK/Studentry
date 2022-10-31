@@ -9,7 +9,7 @@ body {
     font-family: 'Poppins', sans-serif;
     font-size: 15px;
     font-weight: normal;
-    color: hsl(0, 0%, 90%);
+    color: hsl(0, 0%, 5%);
 }
 
 @font-face {
@@ -30,7 +30,15 @@ body {
     flex: 0 0 20%;
     max-width: 20%;
 }
-
+/*For Admin Index*/
+#admin-logout{
+    right: 0px;
+    
+    border: #00a0bc;
+}
+#frame{
+    display: none;
+}
 /*------------------------------------------------------------
 # site-header
 ------------------------------------------------------------*/
@@ -39,8 +47,8 @@ body {
 }
 
 .site-header {
-    position: relative;
-    width: 70%;
+    top:0px;
+    width: 100%;
 }
 
 .site-header figure {
@@ -56,7 +64,6 @@ body {
 ## header-bar
 ------------------------------------------------------------*/
 .site-header .header-bar {
-    text-align: center;
     position: absolute;
     top: 0;
     left: 0;
@@ -66,16 +73,15 @@ body {
 }
 
 .header-bar .site-branding {
-    text-align: center;
     margin-bottom: 0;
     font-size: 30px;
     font-weight: 800;
 }
 
 .header-bar .site-branding a {
-    text-align: center;
-    color: hsl(0, 0%, 100%);
+    color: hsl(0, 78%, 62%);
     text-decoration: none;
+    display: inline-block;
 }
 
 /*------------------------------------------------------------
@@ -149,7 +155,7 @@ body {
     overflow: hidden;
     list-style: none;
     transition: all .35s;
-    color: hsl(0, 0%, 100%);
+    color: hsl(0, 86%, 46%);
 }
 
 .site-navigation.show {
@@ -168,6 +174,7 @@ body {
     margin: 0;
     background: #050505;
     transition: all 0.35s;
+    color: #03070c;
 }
 
 .site-navigation.show ul {
@@ -181,7 +188,7 @@ body {
 
 .site-navigation ul li a {
     display: block;
-    color: #fff;
+    color: rgb(29, 28, 28);
     transition: all 0.35s;
     text-decoration: none;
     font-size: 14px;
@@ -234,14 +241,14 @@ body {
 # hero
 -----------------------------------------------------------*/
 .hero-content {
-    padding: 100px 0;
+    padding: 220px 0;
     background: url("images/cover.jpg") no-repeat;
     background-size: cover;
 }
 
 .hero-content .entry-header {
     position: relative;
-    text-align: left;
+    text-align: center;
 }
 
 .hero-content .entry-header h2 {
@@ -922,15 +929,21 @@ body {
 # about-us
 ------------------------------------------------------------*/
 .about-us {
-    background: url("images/about-us-background.jpg") no-repeat;
+    /*background-image: linear-gradient(rgb(222, 222, 222), rgb(237, 237, 211), rgb(213, 213, 247));
+    */
+    
     width: 100%;
     height: 100%;
+    background-repeat: no-repeat;
 }
 
 /*------------------------------------------------------------
 # site-header
 ------------------------------------------------------------*/
 .about-us .site-header {
+    background-image: linear-gradient(red,black,blue);
+    top:0;
+    margin-top: 5px;
 }
 
 .about-us .site-header figure {
@@ -946,14 +959,16 @@ body {
 ## Page Header
 ------------------------------------------------------------*/
 .page-header {
-    min-height: 520px;
-    padding-top: 280px;
+    background-image: linear-gradient(red,black,blue);
+    margin-top: 25px;
+    min-height: 200px;
+    padding-top: 100px;
     background-size: cover;
 }
 
 .about-us .page-header {
-    background: url("images/about-us-header-background.jpg") no-repeat;
-    background-size: cover;
+
+    
 }
 
 .page-header .entry-title {
@@ -961,6 +976,7 @@ body {
     color: white;
     margin: 0;
     padding: 0;
+    font-size: 20px;
 }
 
 .page-header .breadcrumbs {
@@ -1004,7 +1020,7 @@ body {
 .main-content .entry-header .entry-title p {
     margin: 0;
     padding: 0;
-    font-size: 14px;
+    font-size: 20px;
     font-weight: 500;
     color: #7a7a7a;
 }

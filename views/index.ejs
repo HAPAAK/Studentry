@@ -1,6 +1,10 @@
 
 <%- include("partials/header", {title: "Home"}) %>
-
+<% if(failure) { %>
+    <div class="alert alert-danger" role="alert">
+        <%= msg %>
+    </div>
+  <% } %>
 <body>
     <header class="site-header">
         <div class="header-bar">
@@ -37,8 +41,8 @@
             <div class="row">
                 <div class="col-12 ">
                     <div class="entry-footer">
-                        <a href="studentlogin.ejs" class="btn">Sign in as Student</a>
-                        <a href="counsellorlogin.ejs" class="btn current">Sign in as Counsellor</a>
+                        <a href="/studentlogin" class="btn">Sign in as Student</a>
+                        <a href="/counsellorlogin" class="btn current">Sign in as Counsellor</a>
                     </div>
                 </div>
             </div>

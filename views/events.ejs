@@ -1,0 +1,56 @@
+<%- include("partials/header", {title: "Studenttindex"}) %>
+<%- include("partials/navbar", {title:"Home"}) %>
+
+
+
+
+<div class="main-content">
+    <div class="container">
+        <div class="entry-header">
+            <div class="entry-title">
+                <p><a href ="/addevent" >Add event/note</a></p>
+                <h2>Your events</h2>
+            </div><!-- entry-title -->
+        </div><!-- entry-header -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="event-tickets" style="padding-top: 80px;">
+                    <form action="/buy" method="post">
+
+                        
+                            <div class="ticket-row flex flex-column flex-lg-row justify-content-lg-between align-items-lg-center">
+                                <div class="ticket-type flex flex-column flex-lg-row align-items-lg-center">
+                                    <h3 class="entry-title"></h3>
+    
+                                    <span class="mt-2 mt-lg-0"></span>
+    
+                                    <div class="ticket-price mt-3 mt-lg-0">
+                                       
+                                    </div><!-- ticket-price -->
+                                </div><!-- ticket-type -->
+    
+                                <div class="flex align-items-center">
+                                    <div class="number-of-tickets flex justify-content-between align-items-center">
+                                        <span class="decrease-ticket">-</span>
+                                        <input type="number" name="" value="1" class="ticket-count">
+                                        <span class="increase-ticket">+</span>
+                                    </div><!-- number-of-tickets -->
+                                </div><!-- flex -->
+    
+                            </div><!-- ticket-row -->
+                       
+
+                        <div style="width: 20%; margin: 50px auto 0;">
+                            <a class="btn btn-dark clear-ticket-count">Clear</a>
+                            <button type="submit" class="btn btn-success">Buy</button>
+                        </div>
+
+                    </form>
+                </div><!-- event-tickets -->
+            </div><!-- col-12 -->
+        </div><!-- row -->
+    </div><!-- container -->
+</div><!-- main-content -->
+
+<%- include("partials/footer") %>

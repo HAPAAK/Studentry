@@ -33,9 +33,13 @@ const CounsellorSchema = new mongoose.Schema({
         type:String,
         required:true,
         unique:true
+    },
+    createdAt:{
+        type:Date,
+        default: Date.now
     }
 })
 
-const CounsellorRegister = new mongoose.model("CounsellorRegister",StudentSchema);
+const CounsellorRegister = new mongoose.model("counsellorregisters",CounsellorSchema);
 
 module.exports= CounsellorRegister;

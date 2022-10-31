@@ -6,16 +6,19 @@ $("#password-checkbox").click(function() {
     }
 });
 
-function isValid(username) {
-    const allowedChars = ['-', '_', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-
-    for(let i = 0; i<username.length; i++) {
-        let ch = username.charAt(i);
-        if(!(ch>='a' && ch<='z') && !(ch>='A' && ch<='Z') && !allowedChars.includes(ch)) {
-            return false;
-        }
+function preview(){
+    document.getElementById("frame").style.display='block';
+    document.getElementById("frame").src = URL.createObjectURL(event.target.files[0]);
+}
+    
+function shownoteentry() {
+    var button = document.getElementById("addnote");
+    var myDiv = document.getElementById("eventsdetails");
+    if (myDiv.style.visibility === "hidden") {
+        myDiv.style.visibility = "visible";  
+    } else {
+        myDiv.style.visibility = "hidden"; 
     }
-    return true;
 }
 
 $(".pass-btn").click(function() {
