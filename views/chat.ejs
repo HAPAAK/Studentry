@@ -1,0 +1,46 @@
+<%- include("partials/header", {title: "Studenttindex"}) %>
+<%- include("partials/navbar", {title:"Home"}) %>
+
+<div class="content-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="lineup-artists-headline">
+                    <div class="entry-title">
+                        <p>Welcome to the friends section</p>
+                        <h2>Let's see your friends</h2>
+                    </div><!-- entry-title -->
+
+                    <div class="">
+                        <% friends.forEach(friend => { %>
+                            <% if(friend.registration_number != registernumber){ %>
+                                <div class="lineup-artists-wrap flex flex-wrap">
+
+                                    <div class="lineup-artists-description">
+                                        <div class="lineup-artists-description-container">
+                                            <div class="entry-title">
+                                                <%= friend.firstname %>
+                                                <%=friend.lastname %>
+                                            </div><!-- entry-title -->
+    
+                                            <div class="entry-content">
+                                                <p><%= friend.registration_number %></p>
+                                                <p>Contact no :  <%= friend.phone_number %></p>
+                                            </div><!-- entry-content -->
+
+                                        </div><!-- lineup-artists-description-container -->
+                                    </div><!-- lineup-artists-description -->
+                                </div><!-- lineup-artists-wrap -->
+                            <% } %>
+                        <% }); %> -->
+                    </div><!-- lineup-artists -->
+                </div><!-- lineup-artists-headline -->
+            </div><!-- col-12 -->
+        </div><!-- row -->
+    </div><!-- container -->
+</div>
+
+<p>Your Active forums</p>
+
+
+<%- include("partials/footer") %>

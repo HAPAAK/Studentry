@@ -17,8 +17,9 @@
                             <a href="/adminindex">Welcome Admin</a>
                         </h1><br>
                         
-                        <a style="margin-left:35px;font-size: 18px;" href="/logout">Logout</a><br>
-                        <a style="margin-left:35px;font-size: 18px;margin-bottom: 10px;" href="/adminforum">Raise a forum or announce news</a>
+                        <a style="margin-left:35px;font-size: 18px;" href="/logout">Logout</a>
+                        <a style="margin-left:35px;font-size: 18px;margin-bottom: 10px;" href="/adminindex">Post Today Question</a>
+                             
                     </div>
                 </div><!-- .row -->
             </div><!-- container-fluid -->
@@ -30,28 +31,25 @@
         <div class="container">
             <div class="entry-header">
                 <div class="entry-title">
-                    <br><p>Upload your today Riddle</p><br>
-                    Note: Riddle must be Numerical
-                    <h2>For Date : </h2>
-                    <form class = "question-form" action="/adminindex" method= "post" enctype="multipart/form-data">
+                    <h3> Announce a information</h3><br>
+                    <form class = "question-form" action="/adminforum" method= "post">
                         <div class ="txtb">
-                            <textarea name = "question" id="question" rows="15" cols="150" placeholder = "Enter your Question" required></textarea>
+                            <textarea name = "news" id="news" rows="15" cols="150" placeholder = "Enter your information" ></textarea>
                         </div><br>
                         <div class="txtb">
                             <input name="createdAt" id="createdAt" type="date" placeholder="Enter date" required>
                         </div><br>
-                        <div class = "txtb">
-                            <input name="file" type="file" id = "file" onchange="preview()" placeholder="Upload an image">
-                            <img id="frame" height="500" width="1000px"> 
-                        </div><br>
                         <div class="txtb">
-                            <input name="createdBy" id ="createdBy" type="text" placeholder="Enter your name" style="width: 250px;">
+                            <input name="url" id ="url" type="url" placeholder="Paste url if any" style="width: 250px;">
                         </div><br>
+                        <hr>
+                        <h3>Raise a forum</h3>
                         <div class="txtb">
-                            <input name="answer" id ="answer" type="text" placeholder="Enter the correct answer" style="width: 250px;">
+                            <p>Topic of Discussion</p>
+                            <textarea name = "forumtopic" id="forumtopic" rows="15" cols="150" ></textarea>
                         </div><br>
 
-                        <button type="submit" class="btn btn-outline-dark btn-lg btn-block admin-btn">Post Question</button>
+                        <button type="submit" class="btn btn-outline-dark btn-lg btn-block admin-btn">Post information</button>
                     </form>
                 </div><!-- -->
             </div><!-- -->
