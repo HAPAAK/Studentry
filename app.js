@@ -8,18 +8,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const multer = require('multer');
-
-//defining storage location and how to upload using multer
-var storage = multer.diskStorage({
-    destination:function(req,res,cb){
-        cb(null,"./uploads");
-    },
-    filename:function(req,file,cb){
-        cb(null,file.originalname);
-    }
-})
-var upload = multer({storage:storage});
+const fs = require("fs");
 
 //define dynamic port
 const port = process.env.PORT || 3000;
@@ -31,22 +20,39 @@ const static_path = path.join(__dirname,"public");
 require('ejs');
 app.set("view engine","ejs");
 app.use(express.static(static_path));
-app.use("/uploads",express.static("uploads"));
+//app.use("/uploads",express.static("uploads"));
 
 //database part
 require('mongoose');
 const db =  require('./db/conn.js');
-//for creating student schema is
+
+//for accessing schema:
 const StudentRegister = require("./db/models/studentregister");
 const CounsellorRegister = require("./db/models/counsellorregister");
 const AdminSchema = require("./db/models/adminquestion");
 const Admins = require("./db/models/admin");
 const AddEvent = require("./db/models/addevent");
 const UserEvent = require("./db/models/userevent");
+const News = require("./db/models/news");
+const Comments = require("./db/models/forumcomment");
+const Forum = require("./db/models/forum");
+
+//for uploading files and images
+var multer = require('multer');
+var upload = multer({dest:'uploads/'});
+var storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, './uploads');
+     },
+    filename: function (req, file, cb) {
+        cb(null , file.originalname);
+    }
+});
+var upload = multer({ storage: storage })
 //let studentname = "";
 //let password = "";
 //let email = "";
-let registernumber = "";
+let registernumber="19BCE2648";
 let failure = false;
 let msg = "";
 let StudentloggedIn = false;
@@ -112,22 +118,54 @@ app.get("/adminindex",(req,res)=>{
     console.log("Admin Index being loaded");
     res.render("adminindex",{failure:false,msg:""});
 })
-app.post("/adminindex",async(req,res)=>{
+app.post("/adminindex",upload.single("file"),async(req,res)=>{
     console.log("Posting an Question");
-    //registernumber=req.body.regno;
+   console.log(req.file.originalname);
     try{
         const uploadquestion = new AdminSchema({
             question:req.body.question,
             createdBy:req.body.createdBy,
             answer:req.body.answer,
-            createdAt:req.body.createdAt
+            createdAt:req.body.createdAt,
+            img:{
+                // data: fs.readFileSync(path.join(__dirname+"/uploads/" +req.file.originalname)),
+                data:"http://localhost:3000/file/${req.file.filename}",
+                contentType:"image/png"
+            }
         })
+        //  if(req.file){
+        //     uploadquestion.img=req.file.path
+    //}
         const question_registered = await uploadquestion.save();
         console.log(question_registered);
         res.status(201).render("index",{failure:true,msg:"Congratulation your question has been posted"});
     }catch(error){
         console.log(error);
-        res.status(400).render("adminindex" ,{failure:true,msg:"Question for today has already been posted"});
+        res.status(400).render("adminindex" ,{failure:true,msg:"Question for today has already been posted or error occured"});
+    }
+})
+app.get("/adminforum",(req,res)=>{
+    console.log("Admin forum being loaded");
+    res.render("adminforum",{failure:false,msg:""});
+})
+app.post("/adminforum",async(req,res)=>{
+    try{
+        await Forum.deleteMany({});
+        await News.deleteMany({});
+        console.log(req.body);
+        const createforum = new Forum({
+            forumtopic:req.body.forumtopic
+        })
+        console.log(createforum);
+        await createforum.save();
+        const createnews = new News({
+            news:req.body.news,
+            newsurl:req.body.url
+        })
+        await createnews.save();
+        res.status(201).render("adminindex",{failure:true,msg:"Congratulation your information has been posted"});
+    }catch(error){
+        res.send(error);
     }
 })
 
@@ -289,9 +327,8 @@ app.get("/events",async (req,res)=>{
     try{
        const this_events = await UserEvent.findOne({
         regno:registernumber
-        });
-       console.log(this_events); 
-       res.render("events",{failure:false,msg:"",registernumber:registernumber,eventfound:this_events});
+        }).populate("events");
+        res.render("events",{failure:false,msg:"",registernumber:registernumber,eventfound:this_events.events});
     }
     catch(error){
         res.send(error);
@@ -338,15 +375,22 @@ app.post("/addevent",async(req,res)=>{
         //});
         console.log(linking_event.populated('events'));
         console.log(linking_event.events[0].eventname);
-        res.status(201).render("events",{failure:true,msg:"Event has been added",registernumber:registernumber});
+        res.status(201).render("events",{failure:true,msg:"Event has been added",registernumber:registernumber,eventfound:this_events.events});
     }catch(error){
         res.status(400).send(error);
     }
 })
 
 //for chatting with friend
-app.get("/chat",(req,res)=>{
-    res.render("chat",{failure:false,msg:"",registernumber:registernumber});
+app.get("/chat",async(req,res)=>{
+    try{
+        let friends = await StudentRegister.find({});
+        console.log(friends[0].firstname);
+        let openforum = await
+        res.render("chat",{failure:false,msg:"",registernumber:registernumber,friends:friends});
+    }catch(error){
+        res.send(error);
+    }
 })
 app.listen(port,()=>{
     console.log(`Listening at port ${port} `);

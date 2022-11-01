@@ -9,7 +9,7 @@ const QuestionSchema = new mongoose.Schema({
         type:Date,
         unique:true
     },
-    image:{
+    img:{
         data:Buffer,
         contentType:String
     },
