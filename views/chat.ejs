@@ -40,7 +40,47 @@
     </div><!-- container -->
 </div>
 
-<p>Your Active forums</p>
 
+<div class="chatsection">
+    <h2>Opened Forum</h2>
+    <% if(openforum.length==0){ %>
+        <h3>There arenot any open forum</h3>
+    <% }else{ %>
+        <% openforum.forEach(forum=>{ %>
+            <div class="lineup-artists-wrap flex flex-wrap">
+                <div class="lineup-artists-description">
+                    <div class="lineup-artists-description-container">
+                        <div class="entry-title">
+                            <p class="header" ><%= forum.forumtopic %></p>
+                            <p>Forum created on :  <%= forum.createdAt %></p>
+                        </div><!-- entry-title -->   
+                        <u><p>Comments</p></u>
+                        <div class="entry-comment">
+                            <% if(forumcomment.length==0){ %>
+                                <div class="comments-description">
+                                    <p>There are no comments</p>
+                                </div>
+                            <% }else { %>
+                                <% forumcomment.forEach(comment=>{ %>
+                                    <div class="comments-description">
+                                        <%= comment.content %> --
+                                        <%= comment.regno %>
+                                    </div>
+                                <% }); %>  
+                            <% } %>  
+                        </div>             
+                    </div><!-- lineup-artists-description-container -->
+                </div><!-- lineup-artists-description -->
+            </div><!-- lineup-artists-wrap -->
+        <% }); %>
+    <% } %>
+
+
+    <form action="/chat" class="forum-form" method="post">
+        <div class="form-group">
+            <textarea class="form-control" name="forumcomm" id="forumcomm" rows="5" autocomplete="off"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Add the comment</button>
+    </form>
 
 <%- include("partials/footer") %>
