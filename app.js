@@ -203,9 +203,9 @@ app.post("/studentlogin",async(req,res)=>{
         const validstudent = await StudentRegister.findOne( {registration_number:req.body.regno});
         if(validstudent){
             if(validstudent.password == req.body.password){
-                registernumber=req.body.regno;
-                res.status(201).render("studentindex",{failure:false,msg:"",registernumber:registernumber});
+                registernumber=req.body.regno; 
                 StudentloggedIn=true;
+                res.status(201).render("studentindex",{failure:false,msg:"",registernumber:registernumber});
             }else{
                 res.render("studentlogin",{failure:true,msg:"Passport Invalid"});
             }
@@ -255,13 +255,9 @@ app.get("/studentindex",(req,res)=>{
     //let results = {"title":"hello","description":"gekk"};
     console.log("User's Home");
     console.log(registernumber);
-    if(StudentloggedIn==true){
-        res.render("studentindex",{failure:failure,msg:msg,registernumber:registernumber});
-        failure=false;
-        msg = "";
-    }else{
-        res.render("index",{failure:false,msg:""});
-    }
+    res.render("studentindex",{failure:failure,msg:msg,registernumber:registernumber});
+    failure=false;
+    msg = "";
 })
 
 app.get("/counsellorlogin",(req,res)=>{
@@ -366,13 +362,14 @@ app.post("/addevent",async(req,res)=>{
         
         const update_user_event = await UserEvent.updateMany(
             {_id:userevent._id},
-            { $push: { events: addevent._id } },
+            { $push: { events: addevent._id } }
             //{ new: true, useFindAndModify: false }
         );
         console.log(update_user_event);
         const linking_event = await UserEvent.findById(userevent._id).populate("events");//.exec((err,events)=>{
             //console.log("populated events" + events);
         //});
+        
         console.log(linking_event.populated('events'));
         console.log(linking_event.events[0].eventname);
         res.status(201).render("events",{failure:true,msg:"Event has been added",registernumber:registernumber,eventfound:this_events.events});
@@ -385,9 +382,38 @@ app.post("/addevent",async(req,res)=>{
 app.get("/chat",async(req,res)=>{
     try{
         let friends = await StudentRegister.find({});
-        console.log(friends[0].firstname);
-        let openforum = await
-        res.render("chat",{failure:false,msg:"",registernumber:registernumber,friends:friends});
+        
+        let openforum = await Forum.find({});
+        
+        const forumcomment = await Forum.findOne({}).populate("comments");
+        console.log(forumcomment.comments.length);
+        res.render("chat",{failure:false,msg:"",
+        registernumber:registernumber,
+        friends:friends,
+        openforum:openforum,forumcomment:forumcomment.comments});
+    }catch(error){
+        res.send(error);
+    }
+})
+app.post("/chat",async(req,res)=>{
+    try{
+        let friends = await StudentRegister.find({});
+        const addingcommentforum = new Comments({
+            regno:registernumber,
+            content:req.body.forumcomm
+        })
+        const added_comment_forum = await addingcommentforum.save();
+        const forum_data = await Forum.find({});
+        const update_forum_data = await Forum.updateMany(
+            {_id:forum_data[0]._id},
+            { $push: {comments : addingcommentforum._id}}
+        );
+        const populateforum = await Forum.findOne({}).populate("comments");
+        res.status(201).render("chat",{failure:true,msg:"Comment has been added",
+        registernumber:registernumber,
+        openforum:forum_data,
+        friends:friends,
+        forumcomment:populateforum.comments});
     }catch(error){
         res.send(error);
     }

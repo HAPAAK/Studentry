@@ -69,6 +69,58 @@ body {
 .userevent .entry-title{
     border-radius: 2px;
 }
+
+/* for chatting page*/
+.chatsection{
+    margin-left: 140px;
+    padding:25px;
+    overflow: auto;
+    margin-bottom: 25px;
+}
+.chatsection h2{
+    margin-left: 15px;
+    color: red;
+}
+.chatsection p{
+    font-size: 20px;
+    font-weight: 100;
+}
+.chatsection .lineup-artists-wrap{
+    margin-left: 17px;
+}
+.chatsection .lineup-artists-description-container{
+    padding:5px;
+    background-color: rgb(244, 236, 236);
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+.chatsection .entry-title{
+    border-radius: 2px;
+}
+.chatsection .entry-title .header{
+    font-size: 25px;
+    color: black;
+    font-weight: bold;
+}
+.chatsection .lineup-artists-description-container .entry-comment{
+    margin: 20px;
+    font-size: 24px;
+    font-weight: 100;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.chatsection .comments-description{
+    padding: 10px;
+    margin: 20px;
+    border-radius: 5px;
+    background-color: whitesmoke;
+}
+.forum-form{
+    margin:20px;
+}
+.forum-form textarea{
+    width: 100%;
+}
+
 /*------------------------------------------------------------
 # site-header
 ------------------------------------------------------------*/
@@ -263,7 +315,10 @@ body {
     }
 
     .site-navigation ul li a {
-        color: #fff;
+        font-size: 16px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-weight: 100;
+        color: rgb(5, 4, 6);
     }
 }
 
@@ -946,7 +1001,7 @@ body {
 # site-header
 ------------------------------------------------------------*/
 .about-us .site-header {
-    background-image: linear-gradient(red,black,blue);
+    background-image: linear-gradient(rgb(241, 209, 209),black,blue);
     top:0;
     margin-top: 5px;
 }
@@ -964,7 +1019,7 @@ body {
 ## Page Header
 ------------------------------------------------------------*/
 .page-header {
-    background-image: linear-gradient(red,black,blue);
+    background-image: linear-gradient(rgb(248, 209, 209),rgb(222, 145, 145),rgb(186, 186, 240));
     margin-top: 25px;
     min-height: 200px;
     padding-top: 100px;
@@ -1019,7 +1074,7 @@ body {
 }
 
 .main-content {
-    margin: 120px 0;
+    margin: 50px 0;
 }
 
 .main-content .entry-header .entry-title p {
