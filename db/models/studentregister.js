@@ -12,6 +12,9 @@ const StudentSchema = new mongoose.Schema({
         type:String,
         required: true
     },
+    gender:{
+        type:String
+    },
     age:{
         type:Number,
         required:true
@@ -35,9 +38,15 @@ const StudentSchema = new mongoose.Schema({
         required:true,
         unique:true
     },
+    hascounsellor:{
+        type:Boolean
+    },
     createdAt:{
         type:Date,
         default: Date.now
+    },
+    counsellorinfo:{
+        type:String
     }
 })
 

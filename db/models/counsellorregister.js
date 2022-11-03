@@ -12,9 +12,16 @@ const CounsellorSchema = new mongoose.Schema({
         type:String,
         required: true
     },
+    gender:{
+        type:String,
+        required:true
+    },
     age:{
         type:Number,
         required:true
+    },
+    designation:{
+        type:String
     },
     summary:{
         type:String,
@@ -37,7 +44,11 @@ const CounsellorSchema = new mongoose.Schema({
     createdAt:{
         type:Date,
         default: Date.now
-    }
+    },
+    students:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"studentregisters"
+    }]
 })
 
 const CounsellorRegister = new mongoose.model("counsellorregisters",CounsellorSchema);
