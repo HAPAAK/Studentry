@@ -32,7 +32,7 @@
                 <div class="entry-title">
                     <br><p>Upload your today Riddle</p><br>
                     Note: Riddle must be Numerical
-                    <h2>For Date : </h2>
+                    <h2>For Date : <%= new Date().toISOString() %></h2>
                     <form class = "question-form" action="/adminindex" method= "post" enctype="multipart/form-data">
                         <div class ="txtb">
                             <textarea name = "question" id="question" rows="15" cols="150" placeholder = "Enter your Question" required></textarea>

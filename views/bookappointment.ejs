@@ -1,0 +1,50 @@
+<%- include("partials/header", {title: "Appointment"}) %>
+<%- include("partials/navbar2", {title:"Home"}) %>
+
+<div class="main-content">
+    <div class="container">
+        <div class="entry-header">
+            <div class="entry-title">
+                <h2>Book a appointment</h2>
+            </div><!-- -->
+        </div><!-- -->
+    </div><!-- container -->
+</div><!-- main-content -->
+
+
+<div style="width: 70%; margin: 100px auto;">
+    <form action="/userappointment" method=post>
+        <div class="form-group">
+         <label for="text-box" style="color: black; font-weight: bold;">Register Number of a Student</label>
+         <input name="beneficiary" type="text"  class = "form-control" id="text-box" >
+        </div>
+
+        <div class="form-group">
+          <label for="text-box" style="color: black; font-weight: bold;">Date</label>
+          <input type="date" name="appoint_date" class="form-control" id="text-box" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="text-box" style="color: black; font-weight: bold;">Time</label>
+          <input type="time" name="appoint_time" class="form-control" id="text-box" autocomplete="off">
+        </div>
+        <div class="">
+          <label for="text-box" style="color: black; font-weight: bold;">Venue type</label><br>
+          <label for="text-box-on">Online</label>
+          <input type="radio" name="appoint_type" class="" id="text-box-on" value="Online">
+          <label for="text-box-off">Offline</label>
+          <input type="radio" name="appoint_type" class="" id="text-box-off" value="Offline">
+        </div>
+        <div class="form-group">
+          <label for="text-box" style="color: black; font-weight: bold;">Venue</label>
+          <input type="text" name="appoint_venue" class="form-control" id="text-box" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="big-text-box" style="color: black; font-weight: bold;">Instruction</label>
+            <textarea class="form-control" name="appoint_ins" id="text-box" rows="5" autocomplete="off"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Push the Appointment</button>
+    </form>
+</div>
+
+<%- include("partials/footer") %>
