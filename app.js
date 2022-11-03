@@ -504,6 +504,10 @@ app.get("/studentprofile",(req,res)=>{
     res.render("studentprofile",{failure:false,msg:"",registernumber:registernumber});
 })
 
+app.get("/aboutus",(req,res)=>{
+    res.render("aboutus",{failure:false,msg:""});
+})
+
 app.get("/bookappointment",(req,res)=>{
     res.render("bookappointment",{failure:false,msg:""});
 })
