@@ -1,0 +1,75 @@
+<%- include("partials/header", {title: "Counselling"}) %>
+<%- include("partials/navbar", {title:"Home"}) %>
+<div class="user-counselling">
+    <div class="header">
+        <div class="entry-title">
+            <h1>Your counselling section at glance</h1>
+        </div>
+        <div class="appointment">
+            <p>Your appointment details</p>
+            <% if(appointment.length==0){ %>
+                <div class="appointment-details">
+                <p>There are not any appointments</p>
+                </div>
+            <% } else{ %>
+                <% appointment.forEach(appoint=>{ %>
+                    <div class="appointment-details">
+                    <p>There are  appointments</p>
+                    </div>
+                <% }); %>
+            <% } %>
+        </div>
+    </div>
+</div>
+<hr>
+
+
+<div class="container mt-5">
+    <h2>Counsellor Information</h2>
+    <div class="row d-flex justify-content-left">
+        <div class="col-md-7">
+            
+            <div class="card p-3 py-4">
+                <div class="text-center">
+                    <img src="https://i.imgur.com/bDLhJiP.jpg" width="100" class="rounded-circle">
+                </div>
+                <div class="text-center mt-3">
+                    <span class="bg-secondary p-1 px-4 rounded text-white">Counsellor</span>
+                    <h5 class="mt-2 mb-0"><%= counsel.firstname %> </h5>
+                    <span><%= counsel.designation %></span>
+                    
+                    <div class="px-4 mt-1">
+                        <p class="fonts"><%= counsel.summary %></p>
+                    </div>
+                    <div class="buttons">
+                        <button class="btn btn-outline-primary px-4">Message</button>
+                        <button class="btn btn-primary px-4 ms-3">Book an appointment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+
+<div class="chatsection">
+    <h2>Messages with Proctor</h2>
+    <% if(msgwithcounsel.length==0) { %>
+        <h3>There arenot any messages</h3>
+    <% }else{ %>
+        
+    <% } %>
+</div>
+
+
+
+<form action="/chat" class="forum-form" method="post">
+    <div class="form-group">
+        <textarea class="form-control" name="forumcomm" id="forumcomm" rows="5" autocomplete="off"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Add the message</button>
+</form>
+
+
+
+<%- include("partials/footer") %>
