@@ -42,8 +42,7 @@
                         <p class="fonts"><%= counsel.summary %></p>
                     </div>
                     <div class="buttons">
-                        <button class="btn btn-outline-primary px-4">Message</button>
-                        <button class="btn btn-primary px-4 ms-3">Book an appointment</button>
+                        <button class="btn btn-primary px-4 ms-3">Request an appointment</button>
                     </div>
                 </div>
             </div>
@@ -52,18 +51,41 @@
 </div>
 <hr>
 
-<div class="chatsection">
+<div class="counsellor-message-section">
     <h2>Messages with Proctor</h2>
+    <u><p>Messages</p></u>
     <% if(msgwithcounsel.length==0) { %>
-        <h3>There arenot any messages</h3>
+        <p>There arenot any messages</p>
     <% }else{ %>
-        
+        <div class="header">
+            <div class="entry-header">
+                <div class="entry-title"> 
+                    <% msgwithcounsel.forEach(msg=>{ %>
+                        <div class="counsellor-comment">
+                            <% if(msg.from === "counsellor") { %>
+                                <div class="counsellor-description" style="background-color: aqua; float: right;">
+                                    <%= msg.context %> --
+                                    <%= msg.By %> -- at
+                                    <%= msg.createdAt %>
+                                </div>
+                            <% } else { %>
+                                <div class="counsellor-description">
+                                    <%= msg.context %> --
+                                    <%= msg.By %> -- at
+                                    <%= msg.createdAt %>
+                                </div>
+                            <% } %>
+                        </div>   
+                    <% }); %>           
+                </div><!-- lineup-artists-description-container -->
+            </div><!-- lineup-artists-description -->
+        </div><!-- lineup-artists-wrap -->
     <% } %>
 </div>
 
 
 
-<form action="/chat" class="forum-form" method="post">
+<form action="/usercounselling" class="forum-counselling" method="post">
     <div class="form-group">
         <textarea class="form-control" name="forumcomm" id="forumcomm" rows="5" autocomplete="off"></textarea>
     </div>
