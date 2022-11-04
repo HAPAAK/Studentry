@@ -212,8 +212,11 @@ body {
 }
 .user-counselling .header{
     margin: auto;
-    padding: 5px;
+    padding: 15px;
     margin-left: 200px;
+}
+.header{
+    margin-top: 10px;
 }
 .user-counselling .appointment{
     margin: auto;
@@ -231,6 +234,32 @@ body {
 .user-counselling p{
     font-size: 20px;
 }
+
+.counsellor-message-section{
+    margin-left: 120px;
+    padding: 25px;
+    overflow: auto;
+}
+.counsellor-message-section .counsellor-lineup-artists-wrap{
+    margin-left: 120px;
+    padding: 5px;
+}
+.counsellor-message-section .counsellor-comment{
+    margin-left: 120px;
+    justify-content: center;
+}
+.counsellor-comment{
+    margin: 5px;
+    padding: 5px;
+}
+.counsellor-description{
+    margin-left:20px;
+    background-color: whitesmoke;
+}
+.forum-counselling{
+    margin-left: 140px;
+    padding:5px;
+}
 /*------------------------------------------------------------
 # site-header
 ------------------------------------------------------------*/
@@ -239,7 +268,7 @@ body {
 }
 
 .site-header {
-    top:0px;
+    top: 2px;
     width: 100%;
 }
 
@@ -1183,7 +1212,7 @@ body {
 }
 
 .main-content {
-    margin: 50px 0;
+    margin: 50px;
 }
 
 .main-content .entry-header .entry-title p {

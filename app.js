@@ -17,7 +17,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //bind the static path to public directory
 const static_path = path.join(__dirname,"public");
-require('ejs');
 app.set("view engine","ejs");
 app.use(express.static(static_path));
 app.use("/uploads",express.static("uploads"));
@@ -124,6 +123,8 @@ app.get("/adminindex",(req,res)=>{
 })
 app.post("/adminindex",upload.single("file"),async(req,res)=>{
     console.log("Posting an Question");
+    //please ammend this
+    await AdminSchema.deleteMany({});
    console.log(req.file.originalname);
     try{
         const uploadquestion = new AdminSchema({
@@ -250,7 +251,8 @@ app.post("/studentregister",async(req,res)=>{
             registration_number:req.body.regno, 
             email:req.body.email,
             password:req.body.password,
-            phone_number:req.body.phno
+            phone_number:req.body.phno,
+            gender:req.body.gender
         })
         const stu_registered = await registerStudent.save();
         res.status(201).render("studentlogin",{failure:failure,msg:msg});
@@ -314,10 +316,11 @@ app.post("/counsellorlogin",async(req,res)=>{
     const passwd = req.body.password;
     try{
         const validcounsellor = await CounsellorRegister.findOne( {email:mailid});
+        console.log(validcounsellor);
         if(validcounsellor){
             if(validcounsellor.password == passwd){
                 res.status(201).render("counsellorindex",{failure:false,msg:""});
-                AdminloggedIn=true;
+                CounsellorloggedIn=true;
             }else{
                 res.render("counsellorlogin",{failure:true,msg:"Passport Invalid"});
             }
@@ -355,6 +358,20 @@ app.post("/counsellorregistration",async(req,res)=>{
         res.status(201).render("counsellorlogin",{failure:false,msg:""});
     }catch(error){
         res.status(400).send(error);
+    }
+})
+app.get("/counsellorindex",(req,res)=>{
+    res.render("counsellorindex",{failure:false,msg:""});
+})
+
+app.get("/bookappointment",(req,res)=>{
+    res.render("bookappointment",{failure:false,msg:""});
+})
+app.post("/bookappointment",async(req,res)=>{
+    try{
+
+    }catch(error){
+        res.render("bookappointment",{failure:true,msg:error});
     }
 })
 
@@ -403,7 +420,7 @@ app.post("/addevent",async(req,res)=>{
             {_id:userevent._id},
             { $push: { events: addevent._id } }
             //{ new: true, useFindAndModify: false }
-        );
+        )
         console.log(update_user_event);
         const linking_event = await UserEvent.findById(userevent._id).populate("events");//.exec((err,events)=>{
             //console.log("populated events" + events);
@@ -461,6 +478,7 @@ app.get("/usercounselling",async(req,res)=>{
     console.log("User counselling page");
     try{
         const user = await StudentRegister.findOne({registration_number:registernumber});
+        
         if(user.hascounsellor==false){
             const counsellor = await CounsellorRegister.findOne({});
             console.log(counsellor);
@@ -477,9 +495,10 @@ app.get("/usercounselling",async(req,res)=>{
                 { $push: { students: user._id } }
             )
         }
-       
+        console.log(user);
         const counsell = await CounsellorRegister.findOne({email:user.counsellorinfo});
-        const msgwithcounsellor = await CounsellorRel.findOne({regno:user.registration_number}).populate("counsellormsg");
+        const msgwithcounsellor = await CounsellorRel.findOne({regno:user.registration_number}).populate("messages");
+        console.log(msgwithcounsellor);
         let messagewithcounsellor=[];
         if(msgwithcounsellor==null){
             messagewithcounsellor=[];
@@ -495,7 +514,34 @@ app.get("/usercounselling",async(req,res)=>{
 })
 app.post("/usercounselling",async(req,res)=>{
     try{
-
+        let fr="student";
+        const counsellormsg = new CounsellorMsg({
+            createdAt:Date.now().toString(),
+            By:registernumber,
+            from:fr,
+            context:req.body.forumcomm
+        })
+        await counsellormsg.save();
+        let studentrelcounsel = await CounsellorRel.exists({regno:registernumber});
+        if(studentrelcounsel==null){
+            studentrelcounsel = new CounsellorRel({
+                regno:registernumber
+            })
+            await studentrelcounsel.save();
+        }
+        const studentrel = await CounsellorRel.updateMany(
+            {_id:studentrelcounsel._id},
+            {$push:{messages:counsellormsg._id}}
+        )
+        console.log(studentrel);
+        const messagewithcounsellor = await CounsellorRel.findById(studentrelcounsel._id).populate("messages");
+        console.log(messagewithcounsellor);
+        const user = await StudentRegister.findOne({registration_number:registernumber});
+        const counsell = await CounsellorRegister.findOne({email:user.counsellorinfo});
+       
+        console.log(counsell);
+        const appointment = await Appointment.find({beneficiary:user.registration_number});
+        res.render("usercounselling",{failure:false,msg:"",registernumber:registernumber,counsel:counsell,msgwithcounsel:messagewithcounsellor.messages,appointment:appointment});
     }catch(error){
         res.send(error);
     }
@@ -512,6 +558,9 @@ app.get("/bookappointment",(req,res)=>{
     res.render("bookappointment",{failure:false,msg:""});
 })
 
+app.get("/aboutus",(req,res)=>{
+    res.render("aboutus",{failure:false,msg:"",registernumber:registernumber});
+})
 app.listen(port,()=>{
     console.log(`Listening at port ${port} `);
 })
