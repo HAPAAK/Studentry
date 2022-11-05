@@ -4,6 +4,9 @@ const counsellorrelschema = new mongoose.Schema({
         type:String,
         unique:true
     },
+    counsellormail:{
+        type:String,
+    },
     messages:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"counsellormsg"

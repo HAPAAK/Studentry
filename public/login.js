@@ -6,6 +6,10 @@ $("#password-checkbox").click(function() {
     }
 });
 
+// $("#studentlogin-form").submit(function(e) {
+//     e.preventDefault();
+// });
+
 function preview(){
     document.getElementById("frame").style.display='block';
     document.getElementById("frame").src = URL.createObjectURL(event.target.files[0]);

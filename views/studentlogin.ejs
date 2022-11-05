@@ -6,7 +6,7 @@
         </div>
     <% } %>
 
-    <form class="login-form" action="/studentlogin" method="post">
+    <form class="login-form" id="studentlogin-form" action="/studentlogin" method="post">
         <h1>Student Login</h1>
     
         <div class="txtb">
@@ -22,7 +22,7 @@
         <label for="password-checkbox"> Show password</label><br>
         </div>
 
-        <button type="login" class="btn btn-outline-light btn-lg btn-block login-btn">Login</button>
+        <button type="login" class="btn btn-outline-light btn-lg btn-block login-btn" id="button">Login</button>
 
         <div class="bottom-txt">
             <p>Don't have an account? <a href="/studentregister">Sign Up</a></p>
