@@ -39,7 +39,8 @@ const StudentSchema = new mongoose.Schema({
         unique:true
     },
     hascounsellor:{
-        type:Boolean
+        type:Boolean,
+        default:false
     },
     createdAt:{
         type:Date,

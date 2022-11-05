@@ -1,6 +1,59 @@
 <%- include("partials/header", {title: "Counsellor Index"}) %>
 <%- include("partials/navbar2", {title:"Home"}) %>
-<a href="/bookappointment">Book an Appointment</a>
+<button  class="btn btn-primary" style="background-color:rgb(234, 209, 209);margin:10px;"><a href="/bookappointment">Book an Appointment</a></button>
 <h1>Your Counselee </h1>
+<div class="">
+    <% if(allcounselee.length == 0){ %>
+        <p>You have no counselee</p>
+    <% }else{ %>
+        <% allcounselee.forEach(counselee => { %>
+                <div class="lineup-artists-wrap flex flex-wrap">
+                    <div class="lineup-artists-description">
+                        <div class="lineup-artists-description-container">
+                            <div class="entry-title">
+                                <%= counselee.firstname %>
+                                <%=counselee.lastname %>
+                            </div><!-- entry-title -->
+
+                            <div class="entry-content">
+                                <p><%= counselee.registration_number %></p>
+                                <p>Contact no :  <%= counselee.phone_number %></p>
+                            </div><!-- entry-content -->
+
+                        </div><!-- lineup-artists-description-container -->
+                    </div><!-- lineup-artists-description -->
+                </div><!-- lineup-artists-wrap -->
+        <% }); %> -->
+    <% } %>
+</div>
+<hr>
+
+<h2>Your scheduled appointments </h2>
+<div class="">
+    <% if(allappoint.length == 0){ %>
+        <p>You have not any appoinments recently</p>
+    <% }else{ %>
+        <% allappoint.forEach(appoint => { %>
+                <div class="lineup-artists-wrap flex flex-wrap">
+                    <div class="lineup-artists-description">
+                        <div class="lineup-artists-description-container">
+                            <div class="entry-title">
+                                With: <%= appoint.beneficiary %>
+                            </div><!-- entry-title -->
+                            <div class="entry-content">
+                                <p>Type: <%=appoint.venue_type %></p>
+                                <p> Venue: <%=appoint.venue %> </p>
+                                <p>Date: <%= appoint.date %></p>
+                                <p>Time :  <%= appoint.time %></p>
+                            </div><!-- entry-content -->
+    
+                        </div><!-- lineup-artists-description-container -->
+                    </div><!-- lineup-artists-description -->
+                </div><!-- lineup-artists-wrap -->
+        <% }); %> -->
+    <% } %>
+</div><!-- lineup-artists -->
+<hr>
+<h3>Your Messages with counselee</h3>
 
 <%- include("partials/footer") %>

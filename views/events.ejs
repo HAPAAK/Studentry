@@ -14,24 +14,28 @@
 </div>
 
 <div class="userevent">
-    <p>Total events: <%= eventfound.length %></p>
-    <% eventfound.forEach(event => { %>
-            <div class="lineup-artists-wrap flex flex-wrap">
+    <% if(eventfound.length==0){ %>
+        <p>You have no events</p>
+    <% }else{ %>
+        <p>Total events: <%= eventfound.length %></p>
+        <% eventfound.forEach(event => { %>
+                <div class="lineup-artists-wrap flex flex-wrap">
 
-                <div class="lineup-artists-description">
-                    <div class="lineup-artists-description-container">
-                        <div class="entry-title">
-                            <%= event.eventname %>
-                        </div><!-- entry-title -->
+                    <div class="lineup-artists-description">
+                        <div class="lineup-artists-description-container">
+                            <div class="entry-title">
+                                <%= event.eventname %>
+                            </div><!-- entry-title -->
 
-                        <div class="entry-content">
-                            <p><%= event.eventdesc %></p>
-                            <p>Event date :  <%= event.createdAt %></p>
-                        </div><!-- entry-content -->
+                            <div class="entry-content">
+                                <p><%= event.eventdesc %></p>
+                                <p>Event date :  <%= event.createdAt %></p>
+                            </div><!-- entry-content -->
 
-                    </div><!-- lineup-artists-description-container -->
-                </div><!-- lineup-artists-description -->
-            </div><!-- lineup-artists-wrap -->
-    <% }); %> -->
+                        </div><!-- lineup-artists-description-container -->
+                    </div><!-- lineup-artists-description -->
+                </div><!-- lineup-artists-wrap -->
+        <% }); %> -->
+    <% } %>
 
 <%- include("partials/footer") %>
