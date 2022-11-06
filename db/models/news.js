@@ -7,6 +7,9 @@ const newsSchema = new mongoose.Schema({
         type:Date,
         default:Date.now()
     },
+    img:{
+        type:String
+    },
     newsurl:{
         type:String,
     }

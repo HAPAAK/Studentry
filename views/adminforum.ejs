@@ -6,7 +6,7 @@
     </div>
 <% } %>
 
-<body class = "about-us">   
+<body class = "about-us" style="background-color: rgb(182, 177, 177);">   
     
     <header class="site-header">
         <div class="header-bar">
@@ -32,11 +32,15 @@
             <div class="entry-header">
                 <div class="entry-title">
                     <h3> Announce a information</h3><br>
-                    <form class = "question-form" action="/adminforum" method= "post">
+                    <form class = "question-form" action="/adminforum" method= "post" enctype="multipart/form-data">
                         <div class ="txtb">
                             <textarea name = "news" id="news" rows="15" cols="150" placeholder = "Enter your information" ></textarea>
                         </div><br>
-                        <div class="txtb">
+                        <div class = "txtb">
+                            <input name="file" type="file" id = "file" onchange="preview()" placeholder="Upload an image">
+                            <img id="frame" height="500" width="1000px"> 
+                        </div><br>
+                        <div class="txtb" style="margin-top:15px ;">
                             <input name="createdAt" id="createdAt" type="date" placeholder="Enter date" required>
                         </div><br>
                         <div class="txtb">
@@ -48,7 +52,6 @@
                             <p>Topic of Discussion</p>
                             <textarea name = "forumtopic" id="forumtopic" rows="15" cols="150" ></textarea>
                         </div><br>
-
                         <button type="submit" class="btn btn-outline-dark btn-lg btn-block admin-btn">Post information</button>
                     </form>
                 </div><!-- -->

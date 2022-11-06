@@ -6,7 +6,7 @@
     </div>
 <% } %>
 
-<body class = "about-us">   
+<body class = "about-us" style="background-color: rgb(247, 225, 225);" >   
     
     <header class="site-header">
         <div class="header-bar">
@@ -16,7 +16,6 @@
                         <h1 class="site-branding flex">
                             <a href="/adminindex">Welcome Admin</a>
                         </h1><br>
-                        
                         <a style="margin-left:35px;font-size: 18px;" href="/logout">Logout</a><br>
                         <a style="margin-left:35px;font-size: 18px;margin-bottom: 10px;" href="/adminforum">Raise a forum or announce news</a>
                     </div>
@@ -25,26 +24,25 @@
         </div><!-- header-bar -->
     </header><!-- .site-header -->
   
-
     <div class="main-content" style="margin:150px ;">
         <div class="container">
             <div class="entry-header">
                 <div class="entry-title">
                     <br><p>Upload your today Riddle</p><br>
                     Note: Riddle must be Numerical
-                    <h2>For Date : <%= new Date().toISOString() %> </h2>
+                    <p>For Date : <%= new Date() %> </p>
                     <form class = "question-form" action="/adminindex" method= "post" enctype="multipart/form-data">
                         <div class ="txtb">
                             <textarea name = "question" id="question" rows="15" cols="150" placeholder = "Enter your Question" required></textarea>
                         </div><br>
                         <div class="txtb">
-                            <input name="createdAt" id="createdAt" type="date" placeholder="Enter date" required>
+                            <input name="createdAt" id="createdAt" type="date" placeholder="Enter date" value="Date.now()" required>
                         </div><br>
-                        <div class = "txtb">
+                        <div class = "btn btn-primary">
                             <input name="file" type="file" id = "file" onchange="preview()" placeholder="Upload an image">
                             <img id="frame" height="500" width="1000px"> 
                         </div><br>
-                        <div class="txtb">
+                        <div class="txtb" style="margin-top:15px; ">
                             <input name="createdBy" id ="createdBy" type="text" placeholder="Enter your name" style="width: 250px;">
                         </div><br>
                         <div class="txtb">
