@@ -3,9 +3,6 @@ const ForumSchema = new mongoose.Schema({
     forumtopic:{
         type:String,
     },
-    img:{
-        type:String
-    },
     createdAt:{
         type:Date,
         default:Date.now()

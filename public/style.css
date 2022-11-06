@@ -30,8 +30,6 @@ body {
     flex: 0 0 20%;
     max-width: 20%;
 }
-/*for loading animation*/
-
 /*For Admin Index*/
 #admin-logout{
     right: 0px;
@@ -605,12 +603,12 @@ body {
 }
 
 .lineup-artists .lineup-artists-wrap .lineup-artists-description {
-    
     position: relative;
     width: 100%;
 }
 
 .lineup-artists .lineup-artists-wrap .lineup-artists-description-container {
+    position: relative;
     padding: 20px;
     background: hsl(0, 22%, 96%);
     box-shadow: 50px 40px 115px rgba(0, 0, 0, 0.1);
