@@ -14,20 +14,17 @@
                     <div class="">
                         <% friends.forEach(friend => { %>
                             <% if(friend.registration_number != registernumber){ %>
-                                <div class="lineup-artists-wrap flex flex-wrap">
-
+                                <div class="lineup-artists-wrap">
                                     <div class="lineup-artists-description">
                                         <div class="lineup-artists-description-container">
                                             <div class="entry-title">
                                                 <%= friend.firstname %>
                                                 <%=friend.lastname %>
                                             </div><!-- entry-title -->
-    
                                             <div class="entry-content">
                                                 <p><%= friend.registration_number %></p>
                                                 <p>Contact no :  <%= friend.phone_number %></p>
                                             </div><!-- entry-content -->
-
                                         </div><!-- lineup-artists-description-container -->
                                     </div><!-- lineup-artists-description -->
                                 </div><!-- lineup-artists-wrap -->

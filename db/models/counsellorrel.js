@@ -7,10 +7,15 @@ const counsellorrelschema = new mongoose.Schema({
     counsellormail:{
         type:String,
     },
+    lastmodified:{
+        type:Date,
+        default:Date.now()
+    },
     messages:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"counsellormsg"
     }]
+    
 })
 const CounsellorRel = new mongoose.model("counsellorrel",counsellorrelschema);
 module.exports = CounsellorRel;

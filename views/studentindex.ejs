@@ -6,7 +6,7 @@
 <div class="highlights-wrapper">
     <div class="book-highlights">
         <div class="book">
-            <img src= "images/download.jpg" alt="image">
+            <img src= "<%= newsinfo.img %>" alt="image">
             <div class="summary">
                 <p>Date: <%= newsinfo.createdAt %></p>
                 <p>By: <%= todaygame.createdBy %></p>
@@ -18,19 +18,18 @@
 </div>
 </div>
 
-
 <div class="main-content" >
-    <div class="container">
-        <div class="entry-header" style="background-color: rgb(241, 197, 197);padding: 10px;">
+    <div class="container" style="background-color: rgb(249, 232, 232);border-radius: 10px;">
+        <div class="entry-header" style="padding: 20px;">
             <h1>Today's Riddle</h1>
             <div class="entry-title">
-                <p>By : <%= todaygame.question %></p>
+                <p>By : <%= todaygame.createdBy %></p>
                 <form class = "question-form" action="/studentindex" method= "post">
                     <div class ="txtb">
                         <textarea name = "question" id="question" value=  rows="15" cols="140" readonly><%= todaygame.question %></textarea>
                     </div><br>
                     <div class = "txtb">
-                        <img id="frame" src="" height="500" width="1000px"> 
+                        <img src= "<%= todaygame.img %>" height="500" width="1000px"> 
                     </div><br>
                     <div class="txtb">
                         <input name="answer" id ="answer" type="text" placeholder="Enter the answer" style="width: 250px;">
