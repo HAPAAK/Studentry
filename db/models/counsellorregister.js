@@ -45,10 +45,6 @@ const CounsellorSchema = new mongoose.Schema({
         type:Date,
         default: Date.now
     },
-    img:{
-        type:String,
-        required:true
-    },
     students:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"studentregisters"

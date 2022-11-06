@@ -2,7 +2,7 @@
 <%- include("partials/navbar2", {title:"Home"}) %>
 <button  class="btn btn-primary" style="background-color:rgb(234, 209, 209);margin:10px;"><a href="/bookappointment">Book an Appointment</a></button>
 <h1>Your Counselee </h1>
-<div class="" >
+<div class="">
     <% if(allcounselee.length == 0){ %>
         <p>You have no counselee</p>
     <% }else{ %>
@@ -55,24 +55,5 @@
 </div><!-- lineup-artists -->
 <hr>
 <h3>Your Messages with counselee</h3>
-<div class="card-columns" style="background-color:rgb(232, 221, 221); padding: 10px;">
-    <% if(allcounseleechat.length == 0){ %>
-        <p>You donot have any counselee to chat</p>
-    <% }else{ %>
-        <% allcounseleechat.forEach(chat => { %>
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title"><%= chat.regno %></h5>
-                    <p class="card-text">You have <%= chat.messages.length %> messages</p>
-                    <a href="#" class="btn btn-primary">See Messages</a>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted"><p class="last-updated">Last modified on <%= chat.lastmodified %></p></small>
-                </div>
-            </div>
-        <% }); %>
-    <% } %>
-  </div>
 
 <%- include("partials/footer") %>

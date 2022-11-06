@@ -48,10 +48,6 @@ const StudentSchema = new mongoose.Schema({
     },
     counsellorinfo:{
         type:String
-    },
-    img:{
-        type:String,
-        required:true
     }
 })
 
