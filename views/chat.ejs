@@ -42,7 +42,7 @@
 
 
 <div class="chatsection">
-    <h2>Opened Forum</h2>
+    <h2>Opened Forum by Admin</h2>
     <% if(openforum.length==0){ %>
         <h3>There arenot any open forum</h3>
     <% }else{ %>
@@ -74,13 +74,13 @@
             </div><!-- lineup-artists-wrap -->
         <% }); %>
     <% } %>
-
-
     <form action="/chat" class="forum-form" method="post">
         <div class="form-group">
             <textarea class="form-control" name="forumcomm" id="forumcomm" rows="5" autocomplete="off"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Add the comment</button>
     </form>
+</div>
+
 
 <%- include("partials/footer") %>
