@@ -1,0 +1,119 @@
+<%- include("partials/header", {title: "Counsellor chat"}) %>
+<%- include("partials/navbar2", {title:"Home"}) %>
+
+<section style="background-color: #eee;">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <img src="<%= sprofile.img %>" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 150px;">
+              <h5 class="my-3"><%= sprofile.firstname %></h5>
+              <p class="text-muted mb-1"><%= sprofile.registration_number %></p>
+              <p class="text-muted mb-4"><%= sprofile.phone_number %></p>
+              <p class="text-muted mb-4">Student</p>
+              
+            </div>
+          </div>
+          
+        </div>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Full Name</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%= sprofile.firstname+ " " +sprofile.lastname %></p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Email</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%= sprofile.email %></p>
+                </div>
+              </div>
+             
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Gender</p>
+                </div>
+                <div class="col-sm-9">
+                    <p class="text-muted mb-0"><%= sprofile.gender %></p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Age</p>
+                </div>
+                <div class="col-sm-9">
+                    <p class="text-muted mb-0"><%= sprofile.age %></p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Joined on</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%= sprofile.createdAt %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="counsellor-message-section">
+    <h2>Messages with counselee</h2>
+    <u><p>Messages</p></u>
+    <% if(counseleechatdetails.length==0) { %>
+        <p>There arenot any messages</p>
+    <% }else{ %>
+        <div class="header">
+            <div class="entry-header">
+                <div class="entry-title"> 
+                    <% counseleechatdetails.forEach(msg=>{ %>
+                        <div class="counsellor-comment">
+                            <% if(msg.from === "student") { %>
+                                <div class="counsellor-description" style="background-color: rgb(191, 245, 245);margin: 5px;padding: 5px; float: right;">
+                                    <%= msg.context %> --
+                                    <%= msg.By %> -- at
+                                    <%= msg.createdAt %>
+                                </div>
+                            <% } else { %>
+                                <div class="counsellor-description" style="float:left; margin: 5px;padding: 5px;">
+                                    <%= msg.context %> --
+                                    <%= msg.By %> -- at
+                                    <%= msg.createdAt %>
+                                </div>
+                            <% } %>
+                        </div>   
+                    <% }); %>           
+                </div><!-- lineup-artists-description-container -->
+            </div><!-- lineup-artists-description -->
+        </div><!-- lineup-artists-wrap -->
+    <% } %>
+</div>
+
+
+
+<form action="/counsellorchat" class="forum-counselling" method="post">
+    <input type="text" class="form-input" name ="counseleeid" id="counseleeid" value="<%= query.id %>" hidden>
+    <div class="form-group">
+        <textarea class="form-control" name="forumcomm" id="forumcomm" rows="5" autocomplete="off"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Add the message</button>
+</form>
+
+<%- include("partials/footer") %>

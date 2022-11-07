@@ -59,19 +59,19 @@
     <% if(allcounseleechat.length == 0){ %>
         <p>You donot have any counselee to chat</p>
     <% }else{ %>
-        <% allcounseleechat.forEach(chat => { %>
+        <% for (let i=0;i<allcounseleechat.length;i++){ %>
             <div class="card">
-                <img src="..." class="card-img-top" alt="...">
+                <img src="<%= counseleephoto[i] %>" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title"><%= chat.regno %></h5>
-                    <p class="card-text">You have <%= chat.messages.length %> messages</p>
-                    <a href="#" class="btn btn-primary">See Messages</a>
+                    <h5 class="card-title"><%= allcounseleechat[i].regno %></h5>
+                    <p class="card-text">You have <%= allcounseleechat[i].messages.length %> messages</p>
+                    <a href="/counsellorchat?id=<%= allcounseleechat[i]._id %>" class="btn btn-primary">See Messages</a>
                 </div>
                 <div class="card-footer">
-                    <small class="text-muted"><p class="last-updated">Last modified on <%= chat.lastmodified %></p></small>
+                    <small class="text-muted"><p class="last-updated">Last modified on <%= allcounseleechat[i].lastmodified %></p></small>
                 </div>
             </div>
-        <% }); %>
+        <% } %>
     <% } %>
   </div>
 
