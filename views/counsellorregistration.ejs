@@ -7,8 +7,14 @@
   </div>
 <% } %>
 
-<form class="login-form-reg" action="/counsellorregistration" method="post">
+<form class="login-form-reg" action="/counsellorregistration" method="post" enctype="multipart/form-data">
   <h1>Counsellor Registration</h1>
+
+  <div class = "txtb">
+    <img id="frame" width="100%"> 
+    <input name="file" type="file" id = "file" onchange="preview()" placeholder="Upload an image">
+  </div>
+  
   <div class="txtb">
     <input name="fname" type="text" placeholder="First Name" id="fname" autocomplete="off">
   </div>

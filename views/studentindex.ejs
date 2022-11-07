@@ -122,13 +122,13 @@
         <div class="entry-header" style="background-color: rgb(241 197 197 / 46%);padding: 28px;box-shadow: 11px 16px 10px #0004;border-radius: 10px;">
             <h1>Today's Riddle</h1>
             <div class="entry-title">
-                <p>By : <%= todaygame.question %></p>
+                <p>By : <%= todaygame.createdBy %></p>
                 <form class = "question-form" action="/studentindex" method= "post">
                     <div class ="txtb">
                         <textarea name = "question" id="question" value=  rows="15" cols="140" readonly><%= todaygame.question %></textarea>
                     </div><br>
                     <div class = "txtb">
-                        <img id="frame" src="" height="500" width="1000px"> 
+                        <img id="frame" src="<%= todaygame.img %>" height="500" width="1000px"> 
                     </div><br>
                     <div class="txtb">
                         <input name="answer" id ="answer" type="text" placeholder="Enter the answer" style="width: 250px;">

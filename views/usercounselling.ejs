@@ -84,7 +84,7 @@
             
             <div class="card p-3 py-4">
                 <div class="text-center">
-                    <img src="https://i.imgur.com/bDLhJiP.jpg" width="100" class="rounded-circle">
+                    <img src="<%= counsel.img %>" width="100" class="rounded-circle">
                 </div>
                 <div class="text-center mt-3">
                     <span class="bg-secondary p-1 px-4 rounded text-white">Counsellor</span>
@@ -117,6 +117,7 @@
                         <!-- <div class="counsellor-comment">
                             <% if(msg.from === "counsellor") { %>
                                 <div class="counsellor-description" style="background-color: aqua; float: left;">
+                                <div class="counsellor-description" style="background-color: rgb(191, 241, 241); margin:5px; padding:5px;float: right;">
                                     <%= msg.context %> --
                                     <%= msg.By %> -- at
                                     <%= msg.createdAt%>

@@ -38,6 +38,10 @@ const StudentSchema = new mongoose.Schema({
         required:true,
         unique:true
     },
+    img:{
+        type:String,
+        required:true
+    },
     hascounsellor:{
         type:Boolean,
         default:false
