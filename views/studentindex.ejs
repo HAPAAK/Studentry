@@ -55,67 +55,39 @@
 
 <div class="newsinfo" >
 <h1>Take a Look at the information!</h1>
-<div class="highlights-wrapper">
-    <div class="book-highlights">
-        <div class="book">
-            <img src= "images/download.jpg" alt="image" width="550px" height="350px">
-            <!-- <div class="summary">
-                
-                <p>Date: <%= newsinfo.createdAt %></p>
-                <p>By: <%= todaygame.createdBy %></p>
-                <p><%= newsinfo.news %></p>
-                <a href="<%= newsinfo.newsurl%>" target="_blank">Read more...</a>
-            </div> -->
-            <div class="col-md-12 col-sm-6 col-xs-12">
-                <div class="feature">
-                    <h4>Notice and News</h4>
-                    <div class="feature-box">
-                        <div class="clearfix">
-                            <div class="iconset">
-                                <span class="icon"><i class="fa fa-bullhorn fa-lg" style="color: #fdb801;"></i></span>
+    <div class="highlights-wrapper">
+        <div class="book-highlights">
+            <div class="book">
+                <img src= "images/download.jpg" alt="image" width="550px" height="350px">
+                <div class="col-md-12 col-sm-6 col-xs-12">
+                    <div class="feature">
+                        <h4>Notice and News</h4>
+                        <% if(newsinfo.length==0){ %>
+                            <p>There are not any news</p>
+                        <% }else{ %>
+                            <% newsinfo.forEach(news=>{ %>
+                            <div class="feature-box">
+                                <div class="clearfix">
+                                    <div class="iconset">
+                                        <span class="icon"><i class="fa fa-bullhorn fa-lg" style="color: #fdb801;"></i></span>
+                                    </div>
+                                    <div class="feature-content">
+                                        <h4>By: Admin</h4>
+                                        <p>Date: <%= news.createdAt %></p>
+                                        <p style="font-size:20px;"><%= news.news %></p>
+                                        <a href="<%= news.newsurl%>" target="_blank">Read more...</a>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="feature-content">
-                                <h4>By: <%= todaygame.createdBy %></h4>
-                                <p>Date: <%= newsinfo.createdAt %></p>
-                                <p><%= newsinfo.news %></p>
-                                <a href="<%= newsinfo.newsurl%>" target="_blank">Read more...</a>
-                            </div>
-                        </div>
+                        <% }); %>
+                        <% } %>
                     </div>
-                    <div class="feature-box">
-                        <div class="clearfix">
-                            <div class="iconset">
-                                <span class="icon"><i class="fa fa-bullhorn fa-lg" style="color: #fdb801;"></i></span>
-                            </div>
-                            <div class="feature-content">
-                                <h4>By: <%= todaygame.createdBy %></h4>
-                                <p>Date: <%= newsinfo.createdAt %></p>
-                                <p><%= newsinfo.news %></p>
-                                <a href="<%= newsinfo.newsurl%>" target="_blank">Read more....</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="feature-box">
-                        <div class="clearfix">
-                            <div class="iconset">
-                                <span class="icon"><i class="fa fa-bullhorn fa-lg" style="color: #fdb801;"></i></span>
-                            </div>
-                            <div class="feature-content">
-                                <h4>By: <%= todaygame.createdBy %></h4>
-                                <p>Date: <%= newsinfo.createdAt %></p>
-                                <p><%= newsinfo.news %></p>
-                                <a href="<%= newsinfo.newsurl%>" target="_blank">Read more....</a>
-                            </div>
-                        </div>
-                    </div>
-                    
                 </div>
             </div>
         </div>
     </div>
 </div>
-</div>
-
+                    
 
 <div class="main-content" >
     <div class="container">

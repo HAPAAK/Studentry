@@ -174,7 +174,7 @@ app.post("/adminforum",async(req,res)=>{
     try{
         let imageurl = `/uploads/${req.file.filename}`;
         await Forum.deleteMany({});
-        await News.deleteMany({});
+        // await News.deleteMany({});
         console.log(req.body);
         const createforum = new Forum({
             forumtopic:req.body.forumtopic
@@ -496,7 +496,7 @@ app.get("/studentindex",async(req,res)=>{
     try{
         console.log("User's Home");
         console.log(registernumber);
-        const newsinfo = await News.findOne({});
+        const newsinfo = await News.find({});
         const todaygame = await AdminSchema.findOne({});
         res.render("studentindex",{failure:failure,msg:msg,registernumber:registernumber,newsinfo:newsinfo,todaygame:todaygame});
         failure=false;
