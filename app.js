@@ -629,6 +629,25 @@ app.get("/studentprofile",async(req,res)=>{
     res.render("studentprofile",{failure:false,msg:"",registernumber:registernumber,student:student});
 })
 
+app.get("/events",async (req,res)=>{
+    console.log("Events page being loaded");
+    try{
+       const userkoevent = await UserEvent.findOne({regno:registernumber});
+       let eventfound=[]; 
+       if(userkoevent!=null){
+            let temp = await userkoevent.populate("events");
+            eventfound = temp.events;
+        }
+        console.log(eventfound);
+        res.render("events",{failure:failure,msg:msg,registernumber:registernumber,eventfound:eventfound});
+        failure=false;
+        msg="";
+    }
+    catch(error){
+        res.send(error);
+    }
+})
+
 app.get("/demo",(req,res)=>{
     res.render("demo");
 })
