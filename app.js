@@ -722,6 +722,7 @@ app.post("/usercounselling",async(req,res)=>{
         res.redirect("/usercounselling");
     }
 })
+
 app.get("/studentprofile",async(req,res)=>{
     try{    
         let student = await StudentRegister.findOne({registration_number:registernumber});
@@ -762,11 +763,11 @@ app.post("/studentprofile",async(req,res)=>{
     }
 })
 
-app.get("/aboutus",(req,res)=>{
-    res.render("aboutus",{failure:failure,msg:msg,registernumber:registernumber});
-    failure=false;
-    msg="";
-})
+// app.get("/aboutus",(req,res)=>{
+//     res.render("aboutus",{failure:failure,msg:msg,registernumber:registernumber});
+//     failure=false;
+//     msg="";
+// })
 
 app.listen(port,()=>{
     console.log(`Listening at port ${port} `);
