@@ -1,5 +1,58 @@
 <%- include("partials/header", {title: "Counselling"}) %>
 <%- include("partials/navbar", {title:"Home"}) %>
+
+<head>
+    <style>
+        .container2 {
+            border: 2px solid #dedede;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+          }
+          
+          /* Darker chat container */
+          .darker {
+            border-color: rgb(204, 204, 204);
+            background-color: rgba(221, 221, 221, 0.83);
+          }
+          
+          /* Clear floats */
+          .container2::after {
+            content: "";
+            clear: both;
+            display: table;
+          }
+          
+          /* Style images */
+          .container2 img {
+            float: left;
+            max-width: 60px;
+            width: 100%;
+            margin-right: 20px;
+            border-radius: 50%;
+          }
+          
+          /* Style the right image */
+          .container2 img.right {
+            float: right;
+            margin-left: 20px;
+            margin-right:0;
+          }
+          
+          /* Style time text */
+          .time-right {
+            float: right;
+            color: #aaa;
+          }
+          
+          /* Style time text */
+          .time-left {
+            float: left;
+            color: #999;
+          }
+    </style>
+</head>
 <div class="user-counselling">
     <div class="header">
         <div class="entry-title">
@@ -61,21 +114,40 @@
             <div class="entry-header">
                 <div class="entry-title"> 
                     <% msgwithcounsel.forEach(msg=>{ %>
-                        <div class="counsellor-comment">
+                        <!-- <div class="counsellor-comment">
                             <% if(msg.from === "counsellor") { %>
+                                <div class="counsellor-description" style="background-color: aqua; float: left;">
                                 <div class="counsellor-description" style="background-color: rgb(191, 241, 241); margin:5px; padding:5px;float: right;">
                                     <%= msg.context %> --
                                     <%= msg.By %> -- at
-                                    <%= msg.createdAt %>
+                                    <%= msg.createdAt%>
                                 </div>
                             <% } else { %>
-                                <div class="counsellor-description">
+                                <div class="counsellor-description" style="background-color: rgb(28, 64, 154); float: right; color:#fff;">
                                     <%= msg.context %> --
                                     <%= msg.By %> -- at
-                                    <%= msg.createdAt %>
+                                    <%= msg.createdAt.toLocaleDateString() %>
                                 </div>
                             <% } %>
-                        </div>   
+                        </div>    -->
+                        <% if(msg.from === "counsellor") { %>
+                        <div class="container2">
+                            <img src="images/professor.png" alt="Avatar">
+                            <h4><%= msg.By %></h4>
+                            <p><%= msg.context %></p>
+                            <span class="time-right"><%= msg.createdAt.toLocaleDateString() %></span>
+                          </div>
+                          <% } else { %>
+                          <div class="container2 darker">
+                            <img src="images/student.jpg" alt="Avatar" class="right">
+                            <h4><%= msg.By %></h4>
+                            <p><%= msg.context %></p>
+                            <span class="time-right"><%= msg.createdAt.toLocaleDateString() %></span>
+                          </div>
+                          <% } %>
+               
+                          
+                          
                     <% }); %>           
                 </div><!-- lineup-artists-description-container -->
             </div><!-- lineup-artists-description -->

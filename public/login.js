@@ -25,6 +25,21 @@ function shownoteentry() {
     }
 }
 
+function editbtn() {
+    var edbtn = document.getElementById("edit");
+    var subtn =document.getElementById("submit");
+    edbtn.style.display="none";
+    subtn.style.display="block";
+
+    var myInp = document.getElementsByClassName("myinp");
+    console.log(myInp);
+    for (let index = 0; index < myInp.length; index++) {
+        myInp[index].removeAttribute('readonly');
+        myInp[index].style.border="1px solid #000";
+    }
+    
+}
+
 $(".pass-btn").click(function() {
     alert("Check your email to get password");
 });
