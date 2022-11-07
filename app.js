@@ -173,7 +173,7 @@ app.get("/adminforum",(req,res)=>{
 app.post("/adminforum",async(req,res)=>{
     try{
         let imageurl = `/uploads/${req.file.filename}`;
-        await Forum.deleteMany({});
+        await Forum.deleteOne({createdBy:"Admin"});
         // await News.deleteMany({});
         console.log(req.body);
         const createforum = new Forum({
@@ -598,15 +598,15 @@ app.post("/addevent",async(req,res)=>{
 app.get("/chat",async(req,res)=>{
     try{
         let friends = await StudentRegister.find({});
-        
         let openforum = await Forum.find({});
-        
         const forumcomment = await Forum.findOne({}).populate("comments");
         console.log(forumcomment.comments.length);
         res.render("chat",{failure:failure,msg:msg,
         registernumber:registernumber,
         friends:friends,
-        openforum:openforum,forumcomment:forumcomment.comments});
+        openforum:openforum,
+        forumcomment:forumcomment.comments
+        });
         failure=false;
         msg="";
     }catch(error){
