@@ -370,6 +370,32 @@ app.post("/counsellorchat",async(req,res)=>{
         res.redirect("/counsellorchat?id="+studentid);
     }
 })
+app.get("/counsellorprofile",async(req,res)=>{
+    try{
+        let cprofile = await CounsellorRegister.findOne({email:counselloremail});
+        res.render("counsellorprofile",{failure:failure,msg:msg});
+        failure=false;
+        msg="";
+    }catch(error){
+        res.send("error");
+    }
+})
+app.post("/counsellorprofile",async(req,res)=>{
+    try{
+        let cprofile = await CounsellorRegister.findOne({email:counselloremail});
+        await CounsellorRegister.updateMany(
+            {_id:cprofile.id},
+            {$set: {firstname:req.body.fname}}
+        );
+        failure=true;
+        msg="Your details have been updated";
+        res.redirect("/counsellorprofile");
+    }catch(error){
+        failure=true;
+        msg=error;
+        res.redirect("/counsellorprofile");
+    }
+})
 app.get("/bookappointment",(req,res)=>{
     res.render("bookappointment",{failure:failure,msg:msg});
     failure=false;
