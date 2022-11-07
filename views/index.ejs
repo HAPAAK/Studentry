@@ -1,5 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Index</title>
 
-<%- include("partials/header", {title: "Home"}) %>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="/css/fontawesome-all.min.css">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="/css/swiper.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/style.css">
+    <style>
+    
+        .aboutus-section {
+            padding: 90px 0;
+        }
+        .aboutus-title {
+            font-size: 30px;
+            letter-spacing: 0;
+            line-height: 32px;
+            margin: 0 0 39px;
+            padding: 0 0 11px;
+            position: relative;
+            text-transform: uppercase;
+            color: #000;
+        }
+        .aboutus-title::after {
+            background: #fdb801 none repeat scroll 0 0;
+            bottom: 0;
+            content: "";
+            height: 2px;
+            left: 0;
+            position: absolute;
+            width: 54px;
+        }
+        .aboutus-text {
+            color: #606060;
+            font-size: 13px;
+            line-height: 22px;
+            margin: 0 0 35px;
+        }
+        
+        a:hover, a:active {
+            color: #ffb901;
+            text-decoration: none;
+            outline: 0;
+        }
+        .aboutus-more {
+            border: 1px solid #fdb801;
+            border-radius: 25px;
+            color: #fdb801;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0;
+            padding: 7px 20px;
+            text-transform: uppercase;
+        }
+        .feature .feature-box .iconset {
+            background: #fff none repeat scroll 0 0;
+            float: left;
+            position: relative;
+            width: 18%;
+        }
+        .feature .feature-box .iconset::after {
+            background: #fdb801 none repeat scroll 0 0;
+            content: "";
+            height: 150%;
+            left: 43%;
+            position: absolute;
+            top: 100%;
+            width: 1px;
+        }
+        
+        .feature .feature-box .feature-content h4 {
+            color: #0f0f0f;
+            font-size: 18px;
+            letter-spacing: 0;
+            line-height: 22px;
+            margin: 0 0 5px;
+        }
+        
+        
+        .feature .feature-box .feature-content {
+            float: left;
+            padding-left: 28px;
+            width: 78%;
+        }
+        .feature .feature-box .feature-content h4 {
+            color: #0f0f0f;
+            font-size: 18px;
+            letter-spacing: 0;
+            line-height: 22px;
+            margin: 0 0 5px;
+        }
+        .feature .feature-box .feature-content p {
+            color: #606060;
+            font-size: 13px;
+            line-height: 22px;
+        }
+        .icon {
+            color : #f4b841;
+            padding:0px;
+            font-size:40px;
+            border: 1px solid #fdb801;
+            border-radius: 100px;
+            color: #fdb801;
+            font-size: 28px;
+            height: 70px;
+            line-height: 70px;
+            text-align: center;
+            width: 70px;
+        }
+    </style>
+
+</head>
 <% if(failure) { %>
     <div class="alert alert-danger" role="alert">
         <%= msg %>
@@ -44,11 +168,86 @@
                         <a href="/studentlogin" class="btn">Sign in as Student</a>
                         <a href="/counsellorlogin" class="btn current">Sign in as Counsellor</a>
                         <a href="/adminlogin" class="btn current" style="margin:20px;">Sign in as Admin</a>
-                        <a href="/aboutus" class="btn" style="margin-top: 10px;">About</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+<div class="aboutus-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 col-sm-6 col-xs-12">
+                <div class="aboutus">
+                    <h2 class="aboutus-title">About Us</h2>
+                    <p class="aboutus-text"><i class="fa fa-instagram fa-lg" style="color: #ac2bac;"></i>Studentry, is an application developed aiming to solve common student hassle 
+                        prioritizing their academic and mental burden. The application is unique in its class 
+                        since no other application provides all these functionalities under single application. 
+                        
+                        </p>
+                    <p class="aboutus-text">It could be considered as alternative for other fragmented application serving 
+                        single purpose. Our application is transparent about it’s working and handling of data. 
+                        We considered fun also to be vital part of the application, so a section is dedicated to 
+                        fun and riddles. Our application can be used by any institute for custom modification 
+                        and providing to their students. It’s modularity design allows it to be portable and 
+                        easily manageable. Since, it is open source, any developer’s voluntary effort will 
+                        make software improve across its life span.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-5 col-sm-6 col-xs-12">
+                <div class="feature">
+                    <div class="feature-box">
+                        <div class="clearfix">
+                            <div class="iconset">
+                                <span class="icon"><i class="fa fa-cog fa-lg" style="color: #fdb801;"></i></span>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Calender</h4>
+                                <p>Tracking School Activities like Classes, Assignment.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature-box">
+                        <div class="clearfix">
+                            <div class="iconset">
+                                <span class="icon"><i class="fa fa-cog fa-lg" style="color: #fdb801;"></i></span>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Grievance Section</h4>
+                                <p>student will have ability to share their genuine 
+                                    concern/ problem on the forum maintain their anonymity.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature-box">
+                        <div class="clearfix">
+                            <div class="iconset">
+                                <span class="icon"><i class="fa fa-cog fa-lg" style="color: #fdb801;"></i></span>
+                            </div>
+                            <div class="feature-content">
+                                <h4> Know your friends</h4>
+                                <p> Each friend can talk to each other for sharing their
+                                    project talks or random informal talks.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature-box">
+                        <div class="clearfix">
+                            <div class="iconset">
+                                <span class="icon"><i class="fa fa-cog fa-lg" style="color: #fdb801;"></i></span>
+                            </div>
+                            <div class="feature-content">
+                                <h4> Counselling Section</h4>
+                                <p> Make an appointment with your Counsellor with regard to your academic phyical nad mental health.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <%- include("partials/footer") %>
