@@ -798,25 +798,7 @@ app.get("/counsellorprofile",async(req,res)=>{
     }
 
 })
-// app.post("/studentprofile",async(req,res)=>{
-//     try{
-//         let student = await StudentRegister.findOne({registration_number:registernumber});
-//         let updatestudentdetails = await StudentRegister.updateMany(
-//             {$_id:student._id},
-//             {$set:{  
-//                 firstname: req.body.fname
-                
-//             }}
-//         );
-//         failure=true;
-//         msg="Your details has been updated";
-//         res.redirect("/studentprofile");
-//     }catch(error){
-//         failure=true;
-//         msg=error;
-//         res.redirect("/studentprofile");
-//     }
-// })
+
 
 // app.get("/aboutus",(req,res)=>{
 //     res.render("aboutus",{failure:failure,msg:msg,registernumber:registernumber});
