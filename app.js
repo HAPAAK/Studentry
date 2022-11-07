@@ -54,7 +54,8 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage })
 
 
-let registernumber="19BCE2658";
+//let registernumber = sessionStorage.getItem("registernumber");
+let registernumber="";
 let counselloremail="rhen.targ42@gmail.com";
 let failure = false;
 let msg = "";
@@ -198,8 +199,8 @@ app.post("/adminforum",async(req,res)=>{
 
 app.get("/logout",(req,res)=>{
     if(StudentloggedIn==true){
+        sessionStorage.removeItem("registernumber");
         StudentloggedIn=false;
-        
     }else if(CounsellorloggedIn==true){
         CounsellorloggedIn=false;
     }else if(AdminloggedIn==true){
@@ -451,6 +452,7 @@ app.post("/studentlogin",async(req,res)=>{
             if(validstudent.password == req.body.password){
                 registernumber=req.body.regno; 
                 StudentloggedIn=true;
+                sessionStorage.setItem("registernumber",req.body.regno);
                 // const newsinfo = await News.findOne({});
                 // const todaygame = await AdminSchema.findOne({});
                 res.redirect("/studentindex");
