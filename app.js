@@ -298,10 +298,18 @@ app.get("/counsellorindex",async(req,res)=>{
         const allappoint  = await Appointment.find({createdBy:counselloremail});
         const allcounselee = await CounsellorRegister.findOne({email:counselloremail}).populate("students");
         const allcounseleechat = await CounsellorRel.find({counsellormail:counselloremail});
-        console.log(allcounseleechat);
-        console.log(await allcounseleechat[0].populate("messages"));
-
-        res.render("counsellorindex",{failure:failure,msg:msg,allappoint:allappoint,allcounselee:allcounselee.students,allcounseleechat:allcounseleechat});
+        let counseleephoto = [];
+        for(let i=0;i<allcounseleechat.length;i++){
+            console.log(await allcounseleechat[i].regno);
+            let temp = await StudentRegister.findOne({registration_number:allcounseleechat[i].regno});
+            //console.log(temp);
+            let imageurl = temp.img;
+            counseleephoto.push(imageurl);
+        }
+        //console.log(counseleephoto);
+        //console.log(allcounseleechat);
+        //console.log(await allcounseleechat[0].populate("messages"));
+        res.render("counsellorindex",{failure:failure,msg:msg,allappoint:allappoint,allcounselee:allcounselee.students,allcounseleechat:allcounseleechat,counseleephoto:counseleephoto});
         failure=false;
         msg="";
     }catch(error){
@@ -310,7 +318,58 @@ app.get("/counsellorindex",async(req,res)=>{
         res.redirect("/counsellorindex");
     }
 })
+// app.post("/counsellorindex",async(req,res)=>{
+//     try{
+//         let counseleeid = req.body.counseleechatid;
+//         const counselee = await CounsellorRel.findOne({_id:counseleeid});
+//         const counseleedetails = await StudentRegister.findOne({registration_number:counselee.regno});
+//         const counseleechatdetails = await counselee.populate("messages");
 
+//     }catch(error){
+//         failure=true;
+//         msg=error;
+//         res.redirect("/counsellorindex");
+//     }
+// })
+app.get("/counsellorchat", async(req,res)=>{
+    try{
+        console.log(req.query);
+        const temp_counseleechatdetails = await CounsellorRel.findOne({_id:req.query.id});
+        const counseleechatdetails = await temp_counseleechatdetails.populate("messages");
+        const sprofile = await StudentRegister.findOne({registration_number:counseleechatdetails.regno});
+        res.render("counsellorchat",{failure:failure,msg:msg,counseleechatdetails:counseleechatdetails.messages,sprofile:sprofile,query:req.query});
+        failure=false;
+        msg="";
+    }catch(error){
+        res.send(error);
+    }
+})
+app.post("/counsellorchat",async(req,res)=>{
+    try{
+        const studentid = req.body.counseleeid;
+        console.log(studentid);
+        const counsellorrelation = await CounsellorRel.findOne({_id:studentid});
+        const newcounselmsg = new CounsellorMsg({
+            createdAt:Date.now(),
+            context:req.body.forumcomm,
+            from:"counsellor",
+            By:counselloremail
+        })
+        await newcounselmsg.save();
+        console.log(newcounselmsg);
+        console.log(counsellorrelation);
+        const studentrel = await CounsellorRel.updateMany(
+            {_id:studentid},
+            {$push:{messages:newcounselmsg._id}},{$set:{lastmodified:Date.now()}}
+        )
+        console.log(studentrel);
+        res.redirect("/counsellorchat?id="+studentid);
+    }catch(error){
+        failure=true;
+        msg=error;
+        res.redirect("/counsellorchat?id="+studentid);
+    }
+})
 app.get("/bookappointment",(req,res)=>{
     res.render("bookappointment",{failure:failure,msg:msg});
     failure=false;
@@ -713,5 +772,3 @@ app.listen(port,()=>{
     console.log(`Listening at port ${port} `);
 })
 
-//comment vaneko addevent ho AddEvent
-//Tutorial vaneko UserEvent h
