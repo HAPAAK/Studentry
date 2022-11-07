@@ -768,15 +768,8 @@ app.post("/studentprofile",async(req,res)=>{
         let updatestudentdetails = await StudentRegister.updateMany(
             {$_id:student._id},
             {$set:{  
-                firstname:req.body.fname,
-                midddlename:req.body.mname,
-                lastname:req.body.lname,
-                age:req.body.age,
-                email:req.body.email,
-                password:req.body.password,
-                phone_number:req.body.phno,
-                gender:req.body.gender,
-                img:imageurl
+                firstname: req.body.fname
+                
             }}
         );
         failure=true;
@@ -788,6 +781,40 @@ app.post("/studentprofile",async(req,res)=>{
         res.redirect("/studentprofile");
     }
 })
+
+
+app.get("/counsellorprofile",async(req,res)=>{
+    try{    
+        let counsellor = await CounsellorRegister.findOne({email:counselloremail});
+        res.render("counsellorprofile",{failure:failure,msg:msg,email:counselloremail,counsellor:counsellor});
+        failure=false;
+        msg="";
+    }catch(error){
+        failure=true;
+        msg=error;
+        res.redirect("/counsellorprofile");
+    }
+
+})
+// app.post("/studentprofile",async(req,res)=>{
+//     try{
+//         let student = await StudentRegister.findOne({registration_number:registernumber});
+//         let updatestudentdetails = await StudentRegister.updateMany(
+//             {$_id:student._id},
+//             {$set:{  
+//                 firstname: req.body.fname
+                
+//             }}
+//         );
+//         failure=true;
+//         msg="Your details has been updated";
+//         res.redirect("/studentprofile");
+//     }catch(error){
+//         failure=true;
+//         msg=error;
+//         res.redirect("/studentprofile");
+//     }
+// })
 
 // app.get("/aboutus",(req,res)=>{
 //     res.render("aboutus",{failure:failure,msg:msg,registernumber:registernumber});
