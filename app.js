@@ -373,7 +373,7 @@ app.post("/counsellorchat",async(req,res)=>{
 app.get("/counsellorprofile",async(req,res)=>{
     try{
         let cprofile = await CounsellorRegister.findOne({email:counselloremail});
-        res.render("counsellorprofile",{failure:failure,msg:msg});
+        res.render("counsellorprofile",{failure:failure,msg:msg,cprofile:cprofile});
         failure=false;
         msg="";
     }catch(error){
