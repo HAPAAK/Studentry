@@ -1,4 +1,5 @@
-<%- include("partials/header", {title: "AdminIndex"}) %>
+<%- include("partials/header3", {title: "AdminForum"}) %>
+<%- include("partials/navbar3", {active:"AdminForum"}) %>
 
 <% if(failure) { %>
     <div class="alert alert-danger" role="alert">
@@ -6,9 +7,9 @@
     </div>
 <% } %>
 
-<body class = "about-us" style="background-color: rgb(182, 177, 177);">   
+
     
-    <header class="site-header">
+    <!-- <header class="site-header">
         <div class="header-bar">
             <div class="container-fluid">
                 <div class="row align-items-center">
@@ -21,41 +22,43 @@
                         <a style="margin-left:35px;font-size: 18px;margin-bottom: 10px;" href="/adminindex">Post Today Question</a>
                              
                     </div>
-                </div><!-- .row -->
-            </div><!-- container-fluid -->
-        </div><!-- header-bar -->
-    </header><!-- .site-header -->
+                </div>
+            </div>
+        </div>
+    </header> -->
   
-
-    <div class="main-content" style="margin:150px ;">
+    <main style="margin-top: 58px">
+        <div class="container pt-4">
+    <div class="main-content">
         <div class="container">
             <div class="entry-header">
                 <div class="entry-title">
                     <h3> Announce a information</h3><br>
                     <form class = "question-form" action="/adminforum" method= "post" enctype="multipart/form-data">
                         <div class ="txtb">
-                            <textarea name = "news" id="news" rows="15" cols="150" placeholder = "Enter your information" ></textarea>
+                            <textarea name = "news" id="news" rows="8" cols="90" placeholder = "Enter your information" ></textarea>
                         </div><br>
                         <div class="txtb">
                             <input name="createdAt" id="createdAt" type="date" placeholder="Enter date" required>
                         </div><br>
                         <div class="txtb">
-                            <input name="url" id ="url" type="url" placeholder="Paste url if any" style="width: 250px;">
+                            <input name="url" id ="url" type="url" placeholder="Paste url if any" >
                         </div><br>
                         <hr>
                         <h3>Raise a forum</h3>
                         <div class="txtb">
                             <p>Topic of Discussion</p>
-                            <textarea name = "forumtopic" id="forumtopic" rows="15" cols="150" ></textarea>
+                            <textarea name = "forumtopic" id="forumtopic" rows="8" cols="90" ></textarea>
                         </div><br>
 
-                        <button type="submit" class="btn btn-outline-dark btn-lg btn-block admin-btn">Post information</button>
+                        <button type="submit" class="btn btn-info btn-lg btn-block admin-btn" style="width: 250px;">Post information</button>
                     </form>
-                </div><!-- -->
-            </div><!-- -->
+                </div>
+            </div>
         </div>
     </div>
-</body>
+    </div>
+    </main>
 
 
 <%- include("partials/footer") %>
