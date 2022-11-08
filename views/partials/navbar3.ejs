@@ -1,0 +1,159 @@
+<% if(failure) { %>
+    <div class="alert alert-danger" role="alert">
+        <%= msg %>
+    </div>
+<% } %>
+
+
+<head>
+
+    <style>
+        body {
+            background-color: #fbfbfb;
+        }
+        @media (min-width: 991.98px) {
+            main {
+                padding-left: 240px;
+            }
+        }
+      
+      /* Sidebar */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        padding: 58px 0 0; /* Height of navbar */
+        box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+        width: 240px;
+        z-index: 600;
+      }
+      
+      @media (max-width: 991.98px) {
+        .sidebar {
+          width: 100%;
+          margin: 10px;
+        }
+      }
+      .sidebar .active {
+        border-radius: 5px;
+        box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+    }
+    
+    .position-sticky {
+        position: relative;
+        top: 0;
+        height: calc(100vh - 48px);
+        padding-top: 0.5rem;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    }
+    input, textarea{
+        width: 80%;
+        border: 2px solid #0004;
+        box-shadow: 4px 4px 3px #0004;
+    }
+    input{
+        height :50px;
+    }
+    .txtb{
+        border-radius: 10%;
+    }
+    
+</style>
+
+</head>
+
+<!--Main Navigation-->
+<header>
+    <!-- Sidebar -->
+    <nav
+         id="sidebarMenu"
+         class="collapse d-lg-block sidebar collapse bg-white"
+         >
+      <div class="position-sticky">
+        <div class="list-group list-group-flush mx-3 mt-4">
+            <% if( active =="AdminForum"){ %>
+    
+            
+          <a
+             href="/adminindex"
+             class="list-group-item list-group-item-action py-2 ripple"
+             aria-current="true"
+             >
+            <i class="fas fa-tachometer-alt fa-fw me-3"></i
+              ><span>Post Todays Quiz</span>
+          </a>
+          <a
+             href="/adminforum"
+             class="list-group-item list-group-item-action py-2 ripple active"
+             >
+            <i class="fas fa-chart-area fa-fw me-3"></i
+              ><span>Raise a forum </span>
+          </a>
+          <% }else{ %>
+            <a
+            href="/adminindex"
+            class="list-group-item list-group-item-action py-2 ripple active active"
+            aria-current="true"
+            >
+           <i class="fas fa-tachometer-alt fa-fw me-3"></i
+             ><span>Post Todays Quiz</span>
+         </a>
+         <a
+            href="/adminforum"
+            class="list-group-item list-group-item-action py-2 ripple "
+            >
+           <i class="fas fa-chart-area fa-fw me-3"></i
+             ><span>Raise a forum </span>
+         </a>
+          <% } %>
+         
+        </div>
+      </div>
+    </nav>
+    <!-- Sidebar -->
+    <!-- Navbar -->
+<nav
+id="main-navbar"
+class="navbar navbar-expand-lg navbar-light bg-white fixed-top"
+>
+<!-- Container wrapper -->
+<div class="container-fluid">
+<!-- Toggle button -->
+
+<!-- Brand -->
+<a class="navbar-brand" href="#">
+ <h3 style="color: #216361;">Welcome Admin</h3>
+</a>
+
+
+<!-- Right links -->
+<ul class="navbar-nav ms-auto d-flex flex-row">
+ <!-- Avatar -->
+ <li class="nav-item">
+   
+     <img
+          src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg"
+          class="rounded-circle"
+          height="22"
+          alt=""
+          loading="lazy"
+          >
+ </li>
+ <li class="nav-item">   
+        <a href="/adminindex" style="color:rgb(84, 45, 45); padding:20px; text-decoration:none;">admin reg no</a>
+</li>
+<li class="nav-item">   
+    <button class="btn btn-danger"><a href="/logout" style="color:#fff; padding:20px; text-decoration:none;">Logout</a></button>
+</li>
+ 
+</ul>
+</div>
+<!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
+  
+    
+  </header>
+  <!--Main Navigation-->
