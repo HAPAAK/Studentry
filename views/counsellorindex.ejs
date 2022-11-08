@@ -1,57 +1,245 @@
 <%- include("partials/header", {title: "Counsellor Index"}) %>
 <%- include("partials/navbar2", {title:"Home"}) %>
-<button  class="btn btn-primary" style="background-color:rgb(234, 209, 209);margin:10px;"><a href="/bookappointment">Book an Appointment</a></button>
+<head>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: 300px 300px 300px 300px;
+            grid-gap: 50px;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Baloo Paaji 2', cursive;
+          }
+          
+          .card {
+            background-color: #222831;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+          }
+          
+          .card__name {
+            margin-top: 15px;
+            font-size: 1.5em;
+          }
+          
+          .card__image {
+            height: 160px;
+            width: 160px;
+            border-radius: 50%;
+            border: 5px solid #272133;
+            margin-top: 20px;
+            box-shadow: 0 10px 50px rgba(235, 25, 110, 1);
+          }
+          
+          
+          .draw-border {
+            box-shadow: inset 0 0 0 4px #58cdd1;
+            color: #58afd1;
+            -webkit-transition: color 0.25s 0.0833333333s;
+            transition: color 0.25s 0.0833333333s;
+            position: relative;
+          }
+          
+          .draw-border::before,
+          .draw-border::after {
+            border: 0 solid transparent;
+            box-sizing: border-box;
+            content: '';
+            pointer-events: none;
+            position: absolute;
+            width: 0rem;
+            height: 0;
+            bottom: 0;
+            right: 0;
+          }
+          
+          .draw-border::before {
+            border-bottom-width: 4px;
+            border-left-width: 4px;
+          }
+          
+          .draw-border::after {
+            border-top-width: 4px;
+            border-right-width: 4px;
+          }
+          
+          .draw-border:hover {
+            color: #ffe593;
+          }
+          
+          .draw-border:hover::before,
+          .draw-border:hover::after {
+            border-color: #eb196e;
+            -webkit-transition: border-color 0s, width 0.25s, height 0.25s;
+            transition: border-color 0s, width 0.25s, height 0.25s;
+            width: 100%;
+            height: 100%;
+          }
+          
+          .draw-border:hover::before {
+            -webkit-transition-delay: 0s, 0s, 0.25s;
+            transition-delay: 0s, 0s, 0.25s;
+          }
+          
+          .draw-border:hover::after {
+            -webkit-transition-delay: 0s, 0.25s, 0s;
+            transition-delay: 0s, 0.25s, 0s;
+          }
+          
+          .card > .btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            line-height: 1.5;
+            font: 700 1.2rem 'Roboto Slab', sans-serif;
+            padding: 0.75em 2em;
+            letter-spacing: 0.05rem;
+            margin: 1em;
+            width: 13rem;
+          }
+          
+          .btn:focus {
+            outline: 2px dotted #55d7dc;
+          }
+          
+          
+          .social-icons {
+            padding: 0;
+            list-style: none;
+            margin: 1em;
+          }
+          
+          .social-icons li {
+            display: inline-block;
+            margin: 0.15em;
+            position: relative;
+            font-size: 1em;
+          }
+          
+          .social-icons i {
+            color: #fff;
+            position: absolute;
+            top: 0.95em;
+            left: 0.96em;
+            transition: all 265ms ease-out;
+          }
+          
+          .social-icons a {
+            display: inline-block;
+          }
+          
+          .social-icons a:before {
+            transform: scale(1);
+            -ms-transform: scale(1);
+            -webkit-transform: scale(1);
+            content: " ";
+            width: 45px;
+            height: 45px;
+            border-radius: 100%;
+            display: block;
+            background: linear-gradient(45deg, #ff003c, #c648c8);
+            transition: all 265ms ease-out;
+          }
+          
+          .social-icons a:hover:before {
+            transform: scale(0);
+            transition: all 265ms ease-in;
+          }
+          
+          .social-icons a:hover i {
+            transform: scale(2.2);
+            -ms-transform: scale(2.2);
+            -webkit-transform: scale(2.2);
+            color: #ff003c;
+            background: -webkit-linear-gradient(45deg, #ff003c, #c648c8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 265ms ease-in;
+          }
+          
+          .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 20px;
+            font-size: 1.2em;
+          }
+
+          .card-columns{
+            display: flex;
+          }
+    </style>
+</head>
+<button  class="btn btn-primary" style="margin:10px;"><a href="/bookappointment" style="color: #fff;">Book an Appointment</a></button>
 <h1>Your Counselee </h1>
 <div class="">
+    <div class="container">
     <% if(allcounselee.length == 0){ %>
         <p>You have no counselee</p>
     <% }else{ %>
         <% allcounselee.forEach(counselee => { %>
-                <div class="lineup-artists-wrap flex flex-wrap">
-                    <div class="lineup-artists-description">
-                        <div class="lineup-artists-description-container">
-                            <div class="entry-title">
-                                <%= counselee.firstname %>
-                                <%=counselee.lastname %>
-                            </div><!-- entry-title -->
-
-                            <div class="entry-content">
-                                <p><%= counselee.registration_number %></p>
-                                <p>Contact no :  <%= counselee.phone_number %></p>
-                            </div><!-- entry-content -->
-
-                        </div><!-- lineup-artists-description-container -->
-                    </div><!-- lineup-artists-description -->
-                </div><!-- lineup-artists-wrap -->
-        <% }); %> -->
+            
+                <div class="card">
+                  <img src="images/avatar1.jpg" alt="Person" class="card__image">
+                  <p class="card__name"><%= counselee.firstname %>
+                    <%=counselee.lastname %></p>
+                  <div class="grid-container">
+              
+                    <div class="grid-child-posts">
+                        <%= counselee.registration_number %>
+                        
+                    </div>
+              
+                    <div class="grid-child-followers">
+                        Contact no :  <%= counselee.phone_number %>
+                    </div>
+              
+                  </div>
+                  <ul class="social-icons">
+                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a href="#"><i class="fa fa-codepen"></i></a></li>
+                  </ul>
+                  
+                  <button class="btn draw-border">Send Message</button>
+              
+                </div>
+                <% }); %> -->
     <% } %>
-</div>
+              
+              </div>
+              
+                
 <hr>
 
 <h2>Your scheduled appointments </h2>
 <div class="">
+  <div class="card-columns" style="background-color:rgb(232, 221, 221); padding: 10px;">
     <% if(allappoint.length == 0){ %>
         <p>You have not any appoinments recently</p>
     <% }else{ %>
         <% allappoint.forEach(appoint => { %>
-                <div class="lineup-artists-wrap flex flex-wrap">
-                    <div class="lineup-artists-description">
-                        <div class="lineup-artists-description-container">
-                            <div class="entry-title">
-                                With: <%= appoint.beneficiary %>
-                            </div><!-- entry-title -->
-                            <div class="entry-content">
-                                <p>Type: <%=appoint.venue_type %></p>
-                                <p> Venue: <%=appoint.venue %> </p>
-                                <p>Date: <%= appoint.date %></p>
-                                <p>Time :  <%= appoint.time %></p>
-                            </div><!-- entry-content -->
+          <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><span class="icon"><i class="fa fa-cog fa-lg" style="color: #fdb801; margin:10px;"></i></span><%= appoint.beneficiary %></h5>
+                <p class="card-text">Type: <%=appoint.venue_type %></p>
+                <p class="card-text">Venue: <%=appoint.venue %></p>
+                <a href="/" class="btn btn-primary"  >counsult</a>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted"><p class="last-updated">Date: <%= appoint.date.toDateString() %></p>
+                  <p>Time :  <%= appoint.time %></p></small>
+            </div>
+        </div>
     
-                        </div><!-- lineup-artists-description-container -->
-                    </div><!-- lineup-artists-description -->
-                </div><!-- lineup-artists-wrap -->
-        <% }); %> -->
+        <% }); %>
     <% } %>
+</div>
 </div><!-- lineup-artists -->
 <hr>
 <h3>Your Messages with counselee</h3>
@@ -59,19 +247,20 @@
     <% if(allcounseleechat.length == 0){ %>
         <p>You donot have any counselee to chat</p>
     <% }else{ %>
+    
         <% for (let i=0;i<allcounseleechat.length;i++){ %>
             <div class="card">
-                <img src="<%= counseleephoto[i] %>" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title"><%= allcounseleechat[i].regno %></h5>
+                    <h5 class="card-title"><span class="icon"><i class="fa fa-comment fa-lg" style="color: #fdb801; margin:10px;"></i></span><%= allcounseleechat[i].regno %></h5>
                     <p class="card-text">You have <%= allcounseleechat[i].messages.length %> messages</p>
-                    <a href="/counsellorchat?id=<%= allcounseleechat[i]._id %>" class="btn btn-primary">See Messages</a>
+                    <a href="/counsellorchat?id=<%= allcounseleechat[i]._id %>" class="btn btn-primary"  >See Messages</a>
                 </div>
                 <div class="card-footer">
-                    <small class="text-muted"><p class="last-updated">Last modified on <%= allcounseleechat[i].lastmodified %></p></small>
+                    <small class="text-muted"><p class="last-updated">Last modified on <%= allcounseleechat[i].lastmodified.toDateString() %></p></small>
                 </div>
             </div>
         <% } %>
+
     <% } %>
   </div>
 

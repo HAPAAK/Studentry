@@ -1,63 +1,49 @@
-<%- include("partials/header", {title: "AdminIndex"}) %>
-
+<%- include("partials/header3", {title: "AdminIndex"}) %>
+<%- include("partials/navbar3", {active:"AdminIndex"}) %>
 <% if(failure) { %>
     <div class="alert alert-danger" role="alert">
         <%= msg %>
     </div>
 <% } %>
 
-<body class = "about-us" style="background-color: rgb(247, 225, 225);">   
+
+  <!--Main layout-->
+  <main style="margin-top: 58px">
+    <div class="container pt-4">
+        <div class="main-content" >
+            <div class="container">
+                <div class="entry-header">
+                    <div class="entry-title">
+                        <br><p>Upload your today Riddle</p><br>
+                        Note: Riddle must be Numerical
+                        <p>For Date : <%= new Date().toDateString() %> </p>
+                        <form class = "question-form" action="/adminindex" method= "post" enctype="multipart/form-data">
+                            <div class ="txtb">
+                                <textarea name = "question" id="question" rows="8" cols="100" placeholder = "Enter your Question" required></textarea>
+                            </div><br>
+                            <div class="txtb">
+                                <input name="createdAt" id="createdAt" type="date" placeholder="Enter date" required>
+                            </div><br>
+                            <div class = "txtb">
+                                <input name="file" type="file" id = "file" onchange="preview()" placeholder="Upload an image">
+                            </div><br>
+                            <div class="txtb" style="margin-top:15px;">
+                                <input name="createdBy" id ="createdBy" type="text" placeholder="Enter your name" >
+                            </div><br>
+                            <div class="txtb">
+                                <input name="answer" id ="answer" type="text" placeholder="Enter the correct answer" >
+                            </div><br>
     
-    <header class="site-header">
-        <div class="header-bar">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-10 col-lg-3">
-                        <h1 class="site-branding flex">
-                            <a href="/adminindex">Welcome Admin</a>
-                        </h1><br>
-                        
-                        <a style="margin-left:35px;font-size: 18px;" href="/logout">Logout</a><br>
-                        <a style="margin-left:35px;font-size: 18px;margin-bottom: 10px;" href="/adminforum">Raise a forum or announce news</a>
+                            <button type="submit" class="btn btn-info btn-lg btn-block admin-btn" style="width: 250px;">Post Question</button>
+                        </form>
                     </div>
-                </div><!-- .row -->
-            </div><!-- container-fluid -->
-        </div><!-- header-bar -->
-    </header><!-- .site-header -->
-  
-
-    <div class="main-content" style="margin:150px ;">
-        <div class="container">
-            <div class="entry-header">
-                <div class="entry-title">
-                    <br><p>Upload your today Riddle</p><br>
-                    Note: Riddle must be Numerical
-                    <p>For Date : <%= new Date() %> </p>
-                    <form class = "question-form" action="/adminindex" method= "post" enctype="multipart/form-data">
-                        <div class ="txtb">
-                            <textarea name = "question" id="question" rows="15" cols="150" placeholder = "Enter your Question" required></textarea>
-                        </div><br>
-                        <div class="txtb">
-                            <input name="createdAt" id="createdAt" type="date" placeholder="Enter date" required>
-                        </div><br>
-                        <div class = "txtb">
-                            <input name="file" type="file" id = "file" onchange="preview()" placeholder="Upload an image">
-                            <img id="frame" height="500" width="1000px"> 
-                        </div><br>
-                        <div class="txtb" style="margin-top:15px;">
-                            <input name="createdBy" id ="createdBy" type="text" placeholder="Enter your name" style="width: 250px;">
-                        </div><br>
-                        <div class="txtb">
-                            <input name="answer" id ="answer" type="text" placeholder="Enter the correct answer" style="width: 250px;">
-                        </div><br>
-
-                        <button type="submit" class="btn btn-outline-dark btn-lg btn-block admin-btn">Post Question</button>
-                    </form>
-                </div><!-- -->
-            </div><!-- -->
+                </div>
+            </div>
         </div>
     </div>
-</body>
+  </main>
+  <!--Main layout-->
+ 
 
 
 <%- include("partials/footer") %>
