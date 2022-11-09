@@ -51,6 +51,9 @@
             float: left;
             color: #999;
           }
+          .card-columns{
+            display: flex;
+          }
     </style>
 </head>
 <div class="user-counselling">
@@ -60,17 +63,29 @@
         </div>
         <div class="appointment">
             <p>Your appointment details</p>
+            <div class="card-columns" style="background-color:rgb(232, 221, 221); padding: 10px;">
             <% if(appointment.length==0){ %>
                 <div class="appointment-details">
                 <p>There are not any appointments</p>
                 </div>
             <% } else{ %>
                 <% appointment.forEach(appoint=>{ %>
-                    <div class="appointment-details">
-                    <p>There are  appointments</p>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><span class="icon"><i class="fa fa-cog fa-lg" style="color: #fdb801; margin:10px;"></i></span><%= appoint.beneficiary %></h5>
+                            <p class="card-text">Type: <%=appoint.venue_type %></p>
+                            <p class="card-text">Venue: <%=appoint.venue %></p>
+                            <p class="card-text">Instruction: <%= appoint.instruction %></p>
+                            <!-- <a href="/" class="btn btn-primary"  >counsult</a> -->
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted"><p class="last-updated">Date: <%= appoint.date.toDateString() %></p>
+                              <p>Time :  <%= appoint.time %></p></small>
+                        </div>
                     </div>
                 <% }); %>
             <% } %>
+        </div>
         </div>
     </div>
 </div>
