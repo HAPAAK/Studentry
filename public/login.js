@@ -16,11 +16,18 @@ function preview(){
 }
     
 function shownoteentry() {
-    var button = document.getElementById("addnote");
+    var button = document.getElementById("toggle");
     var myDiv = document.getElementById("eventsdetails");
+    var etyp = document.getElementById("eventtype");
     if (myDiv.style.visibility === "hidden") {
+        button.value = "Event";
+        button.innerHTML="Add Note";
+        etyp.value="Event";
         myDiv.style.visibility = "visible";  
     } else {
+        button.innerHTML = "Add event";
+        button.value="Note";
+        etyp.value="Note";
         myDiv.style.visibility = "hidden"; 
     }
 }
@@ -28,6 +35,7 @@ function shownoteentry() {
 function editbtn() {
     var edbtn = document.getElementById("edit");
     var subtn =document.getElementById("submit");
+    document.getElementById("myprofile").style.display="block";
     edbtn.style.display="none";
     subtn.style.display="block";
 

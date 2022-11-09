@@ -10,8 +10,8 @@ const QuestionSchema = new mongoose.Schema({
         unique:true
     },
     img:{
-        data:Buffer,
-        contentType:String
+        type:String,
+        required:true
     },
     question:{
         type:String,

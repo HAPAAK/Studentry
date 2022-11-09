@@ -9,16 +9,18 @@ const app = express();
 const bcrypt = require("bcrypt");
 const sessions = require("express-session");
 const cookieParser = require("cookie-parser");
+const MongoStore = require("connect-mongo");
 
 var session;
 app.use(sessions({
     secret: process.env.SESSION_SECRET,
     resave:false,
     saveUninitialized:false,
-    cookie:{maxAge:1000*60*60*24}
+    cookie:{maxAge:1000*60*60*24},
+    store:MongoStore.create({mongoUrl:'mongodb+srv://resham:sapkota@cluster0.pjitpto.mongodb.net/?retryWrites=true&w=majority'})
 }))
 app.use(cookieParser());
-app.use(express.json());
+//app.use(express.json());
 // //define dynamic port
 const port = process.env.PORT || 3000;
 const bodyParser = require("body-parser");
@@ -34,6 +36,8 @@ app.use("/uploads",express.static("uploads"));
 require('mongoose');
 const db =  require('./db/conn.js');
 
+//mail part
+const cron = require("./mail");
 //for accessing schema:
 const StudentRegister = require("./db/models/studentregister");
 const CounsellorRegister = require("./db/models/counsellorregister");
@@ -52,7 +56,6 @@ const Appointment = require("./db/models/appointment");
 //for uploading files and images
 var multer = require('multer');
 const { Admin } = require("mongodb");
-//var upload = multer({dest:'uploads/'});
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, 'uploads/');
@@ -162,6 +165,7 @@ app.post("/adminindex",upload.single("file"),async(req,res)=>{
             //     contentType:"image/png"
             // }
         })
+        console.log(uploadquestion);
         const question_registered = await uploadquestion.save();
         failure=true;
         msg="Congratulation your question has been posted";
@@ -313,7 +317,7 @@ app.get("/counsellorindex",async(req,res)=>{
         const allcounseleechat = await CounsellorRel.find({counsellormail:counselloremail});
         let counseleephoto = [];
         for(let i=0;i<allcounseleechat.length;i++){
-            console.log(await allcounseleechat[i].regno);
+            //console.log(await allcounseleechat[i].regno);
             let temp = await StudentRegister.findOne({registration_number:allcounseleechat[i].regno});
             //console.log(temp);
             let imageurl = temp.img;
@@ -347,7 +351,7 @@ app.post("/counsellorchat",async(req,res)=>{
     try{
         const studentid = req.body.counseleeid;
         const counselloremail= req.session.counselloremail;
-        console.log(studentid);
+        //console.log(studentid);
         const counsellorrelation = await CounsellorRel.findOne({_id:studentid});
         const newcounselmsg = new CounsellorMsg({
             createdAt:Date.now(),
@@ -356,13 +360,13 @@ app.post("/counsellorchat",async(req,res)=>{
             By:counselloremail
         })
         await newcounselmsg.save();
-        console.log(newcounselmsg);
-        console.log(counsellorrelation);
-        const studentrel = await CounsellorRel.updateMany(
+        //console.log(newcounselmsg);
+        //console.log(counsellorrelation);
+        const studentrel = await CounsellorRel.updateOne(
             {_id:studentid},
             {$push:{messages:newcounselmsg._id}},{$set:{lastmodified:Date.now()}}
         )
-        console.log(studentrel);
+        //console.log(studentrel);
         res.redirect("/counsellorchat?id="+studentid);
     }catch(error){
         failure=true;
@@ -374,6 +378,7 @@ app.get("/counsellorprofile",async(req,res)=>{
     try{
         const counselloremail= req.session.counselloremail;
         let counsellor = await CounsellorRegister.findOne({email:counselloremail});
+        //console.log(counsellor);
         res.render("counsellorprofile",{failure:failure,msg:msg,counselloremail:counselloremail,counsellor:counsellor});
         failure=false;
         msg="";
@@ -383,13 +388,25 @@ app.get("/counsellorprofile",async(req,res)=>{
         res.redirect("/counsellorprofile");
     }
 })
-app.post("/counsellorprofile",async(req,res)=>{
+app.post("/counsellorprofile",upload.single("imageurl"), async(req,res)=>{
     try{
         const counselloremail= req.session.counselloremail;
         let cprofile = await CounsellorRegister.findOne({email:counselloremail});
-        await CounsellorRegister.updateMany(
+        //console.log(req.body);
+        let imgurl = `/uploads/${req.file.filename}`;
+        await CounsellorRegister.updateOne(
             {_id:cprofile.id},
-            {$set: {firstname:req.body.fname}}
+            {$set: {
+                firstname:req.body.fname,
+                lastname:req.body.lname,
+                age:req.body.age,
+                designation:req.body.designation,
+                gender:req.body.gender,
+                email:req.body.email,
+                summary:req.body.summary,
+                phone_number:req.body.phno,
+                img:imgurl
+            }}
         );
         failure=true;
         msg="Your details have been updated";
@@ -409,6 +426,8 @@ app.get("/bookappointment",(req,res)=>{
 app.post("/bookappointment",async(req,res)=>{
     try{
         const counselloremail= req.session.counselloremail;
+        const d = new Date(req.body.appoint_date);
+        console.log(d.setDate(d.getDate()-1));
        const appointdetails = new Appointment({
             createdBy:counselloremail,
             date:req.body.appoint_date,
@@ -417,7 +436,7 @@ app.post("/bookappointment",async(req,res)=>{
             venue:req.body.appoint_venue,
             beneficiary:req.body.beneficiary,
             instruction:req.body.appoint_ins,
-            emailnotify:req.body.emailnotify
+            emailnotify:d
        })
        await appointdetails.save();
        failure=true;
@@ -435,6 +454,7 @@ app.get("/studentlogin",async(req,res)=>{
     try{
         console.log("Request for student login received");
         session = req.session;
+        console.log(session);
         if(session.studentid){
             res.redirect("/studentindex");
         }else{
@@ -519,6 +539,8 @@ app.post("/studentregister",upload.single("file"),async(req,res)=>{
 app.get("/studentindex",async(req,res)=>{
     //let results = {"title":"hello","description":"gekk"};
     try{
+        session = req.session;
+        const registernumber = session.studentid;
         console.log("User's Home");
         console.log(registernumber);
         const newsinfo = await News.find({});
@@ -553,7 +575,7 @@ app.post("/studentindex",async(req,res)=>{
 app.get("/events",async (req,res)=>{
     console.log("Events page being loaded");
     try{
-        console.log(req.session)
+        //console.log(req.session)
         const registernumber = req.session.studentid;
        const userkoevent = await UserEvent.findOne({regno:registernumber});
        let eventfound=[]; 
@@ -580,12 +602,15 @@ app.post("/addevent",async(req,res)=>{
     console.log("Events is being added");
     try{
         //let userevent;
+        console.log(req.body);
         const addevent = new AddEvent({
             eventname:req.body.eventname,
+            eventtype:req.body.eventtype,
             eventdesc:req.body.eventdesc,
             eventlocation:req.body.eventlocation,
             eventdate:req.body.eventdate,
-            reminderemail:req.body.reminderemail
+            reminderemail:req.body.reminderemail,
+            eventtype:req.body.eventtype
         })
         // console.log(addevent);
         await addevent.save();
@@ -598,7 +623,7 @@ app.post("/addevent",async(req,res)=>{
             })
             await userevent.save();
         }
-        const update_user_event = await UserEvent.updateMany(
+        const update_user_event = await UserEvent.updateOne(
             {_id:userevent._id},
             { $push: { events: addevent._id } }
         )
@@ -611,7 +636,25 @@ app.post("/addevent",async(req,res)=>{
         res.redirect("/addevent");
     }
 })
-
+app.get("/deleteevent",async(req,res)=>{
+    try{
+        const registernumber = req.session.studentid;
+        console.log(req.query);
+        const deleteevent = await AddEvent.deleteOne({_id:req.query.eventid});
+        //0console.log(deleteevent);
+        let userevent = await UserEvent.findOne({regno:registernumber});
+        await UserEvent.updateOne({_id:userevent._id},{$pull: {events:req.query.eventid}},function(err,docs){
+            if(err){
+                failure=true;
+                msg=err;
+                return res.redirect("/events");
+            }
+            return res.redirect("/events");
+        });
+    }catch(error){
+        //res.send(error);
+    }
+})
 //for chatting with friend
 app.get("/chat",async(req,res)=>{
     try{
@@ -640,7 +683,7 @@ app.post("/chat",async(req,res)=>{
         })
         const added_comment_forum = await addingcommentforum.save();
         const forum_data = await Forum.find({});
-        const update_forum_data = await Forum.updateMany(
+        const update_forum_data = await Forum.updateOne(
             {_id:forum_data[0]._id},
             { $push: {comments : addingcommentforum._id}}
         );
@@ -663,13 +706,13 @@ app.get("/usercounselling",async(req,res)=>{
             console.log(counsellor);
             let val = true;
             console.log(user);
-            await StudentRegister.updateMany(
+            await StudentRegister.updateOne(
                 {_id:user._id},
                 {$set:{counsellorinfo:counsellor.email,
                 hascounsellor:val}}
             )
             console.log(user);
-            await CounsellorRegister.updateMany(
+            await CounsellorRegister.updateOne(
                 {_id:counsellor._id},
                 { $push: { students: user._id } }
             )
@@ -715,7 +758,7 @@ app.post("/usercounselling",async(req,res)=>{
             })
             await studentrelcounsel.save();
         }
-        const studentrel = await CounsellorRel.updateMany(
+        const studentrel = await CounsellorRel.updateOne(
             {_id:studentrelcounsel._id},
             {$push:{messages:counsellormsg._id}},{$set:{lastmodified:Date.now()}}
         )
@@ -741,17 +784,24 @@ app.get("/studentprofile",async(req,res)=>{
     }
 
 })
-app.post("/studentprofile",async(req,res)=>{
+app.post("/studentprofile",upload.single("imageurl"), async(req,res)=>{
     try{
+        console.log("Updating student profile");
         const registernumber = req.session.studentid;
         let student = await StudentRegister.findOne({registration_number:registernumber});
-        let updatestudentdetails = await StudentRegister.updateMany(
+        let imgurl = `/uploads/${req.file.filename}`;
+        let updatestudentdetails = await StudentRegister.updateOne(
             {$_id:student._id},
             {$set:{  
-                firstname: req.body.fname
-                
+                firstname: req.body.fname,
+                lastname:req.body.lname,
+                age:req.body.age,
+                gender:req.body.gender,
+                phone_number:req.body.phno,
+                img:imgurl
             }}
         );
+        //console.log(updatestudentdetails);
         failure=true;
         msg="Your details has been updated";
         res.redirect("/studentprofile");
