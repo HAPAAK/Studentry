@@ -211,9 +211,9 @@ body {
     padding: 15px;
     margin-left: 200px;
 }
-.header{
+/* .header{
     margin-top: 10px;
-}
+} */
 .user-counselling .appointment{
     margin: auto;
     padding: 5px;
@@ -1154,7 +1154,7 @@ body {
 ------------------------------------------------------------*/
 .page-header {
     background-image: linear-gradient(rgb(248, 209, 209),rgb(222, 145, 145),rgb(186, 186, 240));
-    margin-top: 25px;
+    /* margin-top: 25px; */
     min-height: 200px;
     padding-top: 100px;
     background-size: cover;
