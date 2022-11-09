@@ -59,8 +59,31 @@
     .txtb{
         border-radius: 10%;
     }
-    
-</style>
+    #google_translate_element select{
+      background:#f6edfd;
+      color:#111111;
+      border: 1px solid #0004;
+      border-radius:10px;
+      padding:6px 8px;
+         }
+         
+         /*google translate link | logo */
+           .goog-logo-link{
+           display:none!important;
+            }
+         .goog-te-gadget{
+         color:transparent!important;
+         }
+         
+         /* google translate banner-frame */
+          
+         .goog-te-banner-frame{
+         display:none !important;
+         }
+         
+         #goog-gt-tt, .goog-te-balloon-frame{display: none !important;}
+        .goog-text-highlight { background: none !important; box-shadow: none !important;}        
+  </style>
 
 </head>
 
@@ -143,6 +166,19 @@ class="navbar navbar-expand-lg navbar-light bg-white fixed-top"
  </li>
  <!-- <li class="nav-item">   
         <a href="/adminindex" style="color:rgb(84, 45, 45); padding:20px; text-decoration:none;">admin reg no</a>
+        <li>
+          <div id='google_translate_element'></div>
+          <script>
+                  function googleTranslateElementInit() {
+                   new google.translate.TranslateElement({
+                  pageLanguage: 'en',
+                   autoDisplay: 'true',
+                  layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+                  }, 'google_translate_element');
+                  }
+          </script>
+          <script src='//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'></script>
+      </li>
 </li> -->
 <li class="nav-item">   
     <button class="btn btn-danger"><a href="/logout" style="color:#fff; padding:20px; text-decoration:none;">Logout</a></button>
