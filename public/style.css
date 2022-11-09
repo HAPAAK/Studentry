@@ -36,10 +36,6 @@ body {
     
     border: #00a0bc;
 }
-#frame{
-    display: none;
-}
-
 /* user events page*/
 .userevent{
     margin-left: 140px;

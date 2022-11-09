@@ -4,6 +4,10 @@ const EventSchema = new mongoose.Schema({
         type:Date,
         default:Date.now()
     },
+    eventtype:{
+        type:String,
+        required:true
+    },
     eventname:{
         type:String,
         required:true,

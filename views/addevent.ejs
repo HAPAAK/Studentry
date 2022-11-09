@@ -13,8 +13,9 @@
 
 
 <div style="width: 70%; margin: 100px auto;">
+  <button id="toggle" class="btn btn-primary" value="Event" onclick="shownoteentry()">Add note</button><br>
     <form action="/addevent" method=post>
-        <input type="button" id="addnote" class="btn btn-primary" value="Add Note" onclick="shownoteentry()"><br>
+        <input type="text" id="eventtype" name="eventtype" value="Event" hidden>
         <div class="form-group">
          <label for="text-box" style="color: black; font-weight: bold;">Register Number</label>
          <input name="regno" type="text"  class = "form-control" id="text-box" value="<%= registernumber %>" >
@@ -30,6 +31,7 @@
         </div>
 
         <div id="eventsdetails">
+          
         <div class="form-group">
             <label for="text-box" style="color: black; font-weight: bold;">Venue</label>
             <input type="text" name="eventlocation" class="form-control" id="text-box" autocomplete="off">
