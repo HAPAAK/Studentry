@@ -184,7 +184,7 @@
         <% allcounselee.forEach(counselee => { %>
             
                 <div class="card">
-                  <img src="images/avatar1.jpg" alt="Person" class="card__image">
+                  <img src="<%= counselee.img %>" alt="Person" class="card__image">
                   <p class="card__name"><%= counselee.firstname %>
                     <%=counselee.lastname %></p>
                   <div class="grid-container">
@@ -199,14 +199,14 @@
                     </div>
               
                   </div>
-                  <ul class="social-icons">
+                  <!-- <ul class="social-icons">
                     <li><a href="#"><i class="fa fa-instagram"></i></a></li>
                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                     <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                     <li><a href="#"><i class="fa fa-codepen"></i></a></li>
-                  </ul>
+                  </ul> -->
                   
-                  <button class="btn draw-border">Send Message</button>
+                  <!-- <button class="btn draw-border">Send Message</button> -->
               
                 </div>
                 <% }); %> -->
@@ -229,7 +229,8 @@
                 <h5 class="card-title"><span class="icon"><i class="fa fa-cog fa-lg" style="color: #fdb801; margin:10px;"></i></span><%= appoint.beneficiary %></h5>
                 <p class="card-text">Type: <%=appoint.venue_type %></p>
                 <p class="card-text">Venue: <%=appoint.venue %></p>
-                <a href="/" class="btn btn-primary"  >counsult</a>
+                <p class="card-text">Instruction: <%= appoint.instruction %></p>
+                <!-- <a href="/" class="btn btn-primary"  >counsult</a> -->
             </div>
             <div class="card-footer">
                 <small class="text-muted"><p class="last-updated">Date: <%= appoint.date.toDateString() %></p>
