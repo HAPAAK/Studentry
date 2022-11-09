@@ -4,6 +4,42 @@
     </div>
 <% } %>
 
+   
+    
+<head>
+    <style>
+        #google_translate_element select{
+            background:#f6edfd;
+            color:#111111;
+            border: 1px solid #0004;
+            border-radius:10px;
+            padding:6px 8px;
+            }
+            
+            /*google translate link | logo */
+              .goog-logo-link{
+              display:none!important;
+              }
+            .goog-te-gadget{
+            color:transparent!important;
+            }
+            
+            /* google translate banner-frame */
+            
+            .goog-te-banner-frame{
+            display:none !important;
+            }
+            
+            #goog-gt-tt, .goog-te-balloon-frame{display: none !important;}
+           .goog-text-highlight { background: none !important; box-shadow: none !important;}
+
+           
+            .active{
+                background-color: rgba(104, 59, 59, 0.205);
+            }
+    </style>
+</head>
+
 <body class = "about-us">
     <header class="site-header">
         <div class="header-bar">
@@ -19,9 +55,22 @@
                         <nav class="site-navigation">
 
                             <ul>
-                                <li><a href="/counsellorindex">Home</a></li>
-                                <li><a href="/counsellorprofile">Profile</a></li>
+                                <li id="Home"><a href="/counsellorindex">Home</a></li>
+                                <li id="Profile"><a href="/counsellorprofile">Profile</a></li>
                                 <li><a href="/logout">Logout</a></li>
+                                <li>
+                                    <div id='google_translate_element'></div>
+                                    <script>
+                                            function googleTranslateElementInit() {
+                                             new google.translate.TranslateElement({
+                                            pageLanguage: 'en',
+                                             autoDisplay: 'true',
+                                            layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+                                            }, 'google_translate_element');
+                                            }
+                                    </script>
+                                    <script src='//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'></script>
+                                </li>
                             </ul><!-- flex -->
                         </nav><!-- .site-navigation -->
                     </div><!-- .col-12 -->
@@ -45,3 +94,4 @@
             </div><!-- .row -->
         </div><!-- .container -->
     </div><!-- .page-header -->
+
