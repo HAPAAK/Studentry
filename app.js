@@ -184,20 +184,24 @@ app.get("/adminforum", (req,res)=>{
 })
 app.post("/adminforum", async(req,res)=>{
     try{
-        let imageurl = `/uploads/${req.file.filename}`;
-        await Forum.deleteOne({createdBy:"Admin"});
+        
         // await News.deleteMany({});
         console.log(req.body);
-        const createforum = new Forum({
+        if(req.body.forumtopic.length !== 0){
+            await Forum.deleteMany({});
+            const createforum = new Forum({
             forumtopic:req.body.forumtopic
-        })
-        console.log(createforum);
-        await createforum.save();
-        const createnews = new News({
-            news:req.body.news,
-            newsurl:req.body.url
-        })
-        await createnews.save();
+            });
+            console.log(createforum);
+            await createforum.save();
+        }
+        if(req.body.news.length !==0){
+            const createnews = new News({
+                news:req.body.news,
+                newsurl:req.body.url
+            });
+            await createnews.save();
+        }
         failure=true;
         msg="Congratulation your information has been posted";
         res.redirect("/adminindex");
@@ -392,7 +396,7 @@ app.post("/counsellorprofile",upload.single("imageurl"), async(req,res)=>{
     try{
         const counselloremail= req.session.counselloremail;
         let cprofile = await CounsellorRegister.findOne({email:counselloremail});
-        //console.log(req.body);
+        console.log(req.body);
         let imgurl = `/uploads/${req.file.filename}`;
         await CounsellorRegister.updateOne(
             {_id:cprofile.id},
@@ -703,7 +707,7 @@ app.get("/usercounselling",async(req,res)=>{
         const user = await StudentRegister.findOne({registration_number:req.session.studentid});
         if(user.hascounsellor==false){
             const counsellor = await CounsellorRegister.findOne({});
-            console.log(counsellor);
+            //console.log(counsellor);
             let val = true;
             console.log(user);
             await StudentRegister.updateOne(
@@ -711,13 +715,13 @@ app.get("/usercounselling",async(req,res)=>{
                 {$set:{counsellorinfo:counsellor.email,
                 hascounsellor:val}}
             )
-            console.log(user);
+            //console.log(user);
             await CounsellorRegister.updateOne(
                 {_id:counsellor._id},
                 { $push: { students: user._id } }
             )
         }
-        console.log(user);
+        //console.log(user);
         const counsell = await CounsellorRegister.findOne({email:user.counsellorinfo});
         const msgwithcounsellor = await CounsellorRel.findOne({regno:user.registration_number}).populate("messages");
         console.log(msgwithcounsellor);
@@ -728,7 +732,7 @@ app.get("/usercounselling",async(req,res)=>{
             messagewithcounsellor=msgwithcounsellor.messages;
         }
         const appointment = await Appointment.find({beneficiary:user.registration_number});
-        console.log(messagewithcounsellor.length);
+        //console.log(messagewithcounsellor.length);
         res.render("usercounselling",{failure:failure,msg:msg,registernumber:req.session.studentid,counsel:counsell,msgwithcounsel:messagewithcounsellor,appointment:appointment});
         failure=false;
         msg="";
@@ -772,7 +776,8 @@ app.post("/usercounselling",async(req,res)=>{
 
 app.get("/studentprofile",async(req,res)=>{
     try{ 
-        const registernumber = req.session.studentid;   
+        const registernumber = req.session.studentid;
+        console.log(req.session);   
         let student = await StudentRegister.findOne({registration_number:registernumber});
         res.render("studentprofile",{failure:failure,msg:msg,registernumber:registernumber,student:student});
         failure=false;
@@ -787,11 +792,13 @@ app.get("/studentprofile",async(req,res)=>{
 app.post("/studentprofile",upload.single("imageurl"), async(req,res)=>{
     try{
         console.log("Updating student profile");
+        console.log(req.session);
         const registernumber = req.session.studentid;
         let student = await StudentRegister.findOne({registration_number:registernumber});
         let imgurl = `/uploads/${req.file.filename}`;
-        let updatestudentdetails = await StudentRegister.updateOne(
-            {$_id:student._id},
+        console.log(student);
+        let updatestudentdetails = await StudentRegister.findByIdAndUpdate(
+            {_id:student._id},
             {$set:{  
                 firstname: req.body.fname,
                 lastname:req.body.lname,

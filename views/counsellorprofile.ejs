@@ -27,7 +27,7 @@
                     <p class="mb-0">Change Profile Picture</p><br>
                   </div>
                   <div class="col-sm-9">
-                    <input class="text-muted mb-0 form-control-file"  id="imageurl" type="file" name="imageurl">
+                    <input class="text-muted mb-0 form-control-file"  id="imageurl" type="file" name="imageurl" required>
                   </div>
                 </div>
                 <hr>
@@ -92,7 +92,7 @@
                   <p class="mb-0">Mobile</p>
                 </div>
                 <div class="col-sm-9">
-                  <input class="text-muted mb-0 form-control-plaintext myinp" type="number" name="phn_no" required autocomplete="off" value="<%= counsellor.phone_number %>" readonly>
+                  <input class="text-muted mb-0 form-control-plaintext myinp" type="text" name="phn_no" required autocomplete="off" value="<%= counsellor.phone_number %>" readonly>
                 </div>
               </div>
               <hr>

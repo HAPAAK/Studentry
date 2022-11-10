@@ -4,5 +4,9 @@ const reminderschema = new mongoose.Schema({
         type:Date,
         default:Date.now()
     },
+    remindertype:{
+        type:String,
+        required:true
+    },
     
 })
