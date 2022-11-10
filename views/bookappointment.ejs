@@ -41,7 +41,28 @@
         <div class="form-group">
             <label for="big-text-box" style="color: black; font-weight: bold;">Instruction</label>
             <textarea class="form-control" name="appoint_ins" id="text-box" rows="5" autocomplete="off"></textarea>
+        </div><hr>
+        <div class="form-group">
+          <label for="text-box" style="color: black; font-weight: bold;">When do you want to get remainder ?</label>
         </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="reminderdate" value="1hour" id="flexRadioDefault1">
+          <label class="form-check-label" for="flexRadioDefault1">
+            One hour
+          </label>
+        </div><br>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="reminderdate" id="flexRadioDefault2" value="3hour" >
+          <label class="form-check-label" for="flexRadioDefault2">
+            Three hour
+          </label>
+        </div><br>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="reminderdate" id="flexRadioDefault2" value="1day" checked>
+          <label class="form-check-label" for="flexRadioDefault2">
+            One day
+          </label>
+        </div><br>
         <!-- <div class="form-group">
           <label for="text-box" style="color: black; font-weight: bold;">Specify date for remainder</label>
           <input type="datetime-local" name="emailnotify" class="form-control" id="text-box" autocomplete="off">

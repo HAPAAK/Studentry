@@ -26,9 +26,6 @@ const AppointmentSchema = new mongoose.Schema({
     beneficiary:{
         type:String,
         required:true
-    },
-    emailnotify:{
-        type:Date
     }
 })
 const Appointment = new mongoose.model("appointments",AppointmentSchema);
