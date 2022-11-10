@@ -17,7 +17,7 @@ app.use(sessions({
     resave:false,
     saveUninitialized:false,
     cookie:{maxAge:1000*60*60*24},
-    store:MongoStore.create({mongoUrl:'mongodb+srv://resham:sapkota@cluster0.pjitpto.mongodb.net/?retryWrites=true&w=majority'})
+    store:MongoStore.create({mongoUrl:'mongodb+srv://resham:sapkota@cluster0.pjitpto.mongodb.net/?retryWrites=true&w=majority',ttl:2*60*60})
 }))
 app.use(cookieParser());
 //app.use(express.json());
@@ -51,7 +51,7 @@ const Forum = require("./db/models/forum");
 const CounsellorRel = require("./db/models/counsellorrel");
 const CounsellorMsg = require("./db/models/counsellormsg");
 const Appointment = require("./db/models/appointment");
-
+const Allremainder = require("./db/models/reminders");
 
 //for uploading files and images
 var multer = require('multer');
@@ -398,7 +398,7 @@ app.post("/counsellorprofile",upload.single("imageurl"), async(req,res)=>{
         let cprofile = await CounsellorRegister.findOne({email:counselloremail});
         console.log(req.body);
         let imgurl = `/uploads/${req.file.filename}`;
-        await CounsellorRegister.updateOne(
+        await CounsellorRegister.findByIdAndUpdate(
             {_id:cprofile.id},
             {$set: {
                 firstname:req.body.fname,
@@ -430,8 +430,7 @@ app.get("/bookappointment",(req,res)=>{
 app.post("/bookappointment",async(req,res)=>{
     try{
         const counselloremail= req.session.counselloremail;
-        const d = new Date(req.body.appoint_date);
-        console.log(d.setDate(d.getDate()-1));
+        //console.log(d.setDate(d.getDate()-1));
        const appointdetails = new Appointment({
             createdBy:counselloremail,
             date:req.body.appoint_date,
@@ -440,9 +439,27 @@ app.post("/bookappointment",async(req,res)=>{
             venue:req.body.appoint_venue,
             beneficiary:req.body.beneficiary,
             instruction:req.body.appoint_ins,
-            emailnotify:d
        })
        await appointdetails.save();
+       const d = new Date(req.body.appoint_date);
+       var reminderdate = req.body.reminderdate;
+       if (reminderdate === "1hour"){
+        d.setTime(d.getTime()-60*60*1000);
+       }else if(reminderdate === "3hour"){
+        d.setTime(d.getTime()-3*60*60*1000);
+       }else{
+        d.setDate(d.getDate()-1);
+       }
+        const remainder = new Allremainder({
+            createdAt:Date.now(),
+            reminderdate:d,
+            remindertype:"Appointment",
+            createdBy:counselloremail,
+            beneficiaryemail:req.body.beneficiary,
+            appointment:appointdetails._id
+        })
+        await remainder.save();
+        console.log(remainder);
        failure=true;
        msg="Appointment has been created";
        res.redirect("/counsellorindex");
@@ -599,7 +616,10 @@ app.get("/events",async (req,res)=>{
     
 app.get("/addevent",(req,res)=>{
    console.log("Event adding page");
-   res.render("addevent",{failure:false,msg:"",registernumber:req.session.studentid});
+   res.render("addevent",{failure:failure,msg:msg,registernumber:req.session.studentid});
+   failure=false;
+   msg="";
+
 })
 
 app.post("/addevent",async(req,res)=>{
@@ -607,6 +627,16 @@ app.post("/addevent",async(req,res)=>{
     try{
         //let userevent;
         console.log(req.body);
+        const d = new Date(req.body.eventdate);
+        var reminderdate = req.body.reminderdate;
+        if (reminderdate == "1hour"){
+         d.setTime(d.getTime()-60*60*1000);
+        }else if(reminderdate == "3hour"){
+         d.setTime(d.getTime()-3*60*60*1000);
+        }else{
+         d.setDate(d.getDate()-1);
+        }
+        console.log(d);
         const addevent = new AddEvent({
             eventname:req.body.eventname,
             eventtype:req.body.eventtype,
@@ -614,11 +644,26 @@ app.post("/addevent",async(req,res)=>{
             eventlocation:req.body.eventlocation,
             eventdate:req.body.eventdate,
             reminderemail:req.body.reminderemail,
-            eventtype:req.body.eventtype
+            eventtype:req.body.eventtype,
+            reminderdate:d
         })
-        // console.log(addevent);
         await addevent.save();
-        // console.log(adding_event);
+        console.log(addevent);
+        var eventtype = req.body.eventtype;
+        console.log(eventtype);
+        if(eventtype == "Event"){
+            console.log("khate");
+            const remainder = new Allremainder({
+                createdAt:Date.now(),
+                reminderdate:d,
+                remindertype:eventtype,
+                createdBy:req.body.regno,
+                beneficiaryemail:req.body.reminderemail,
+                events:addevent._id
+            })
+            await remainder.save();
+            console.log(remainder);
+        }
         let userevent = await UserEvent.exists({regno:req.body.regno});
         console.log(userevent);
         if(userevent==null){

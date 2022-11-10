@@ -24,6 +24,9 @@ const EventSchema = new mongoose.Schema({
     },
     reminderemail:{
         type:String
+    },
+    reminderdate:{
+        type:Date,
     }
 })
 const AddEvent = new mongoose.model("events",EventSchema);

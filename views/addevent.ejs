@@ -12,12 +12,12 @@
 </div><!-- main-content -->
 
 
-<div style="width: 70%; margin: 100px auto;">
+<div style="width: 70%; margin: 0px auto;margin-bottom: 10px;">
   <button id="toggle" class="btn btn-primary" value="Event" onclick="shownoteentry()">Add note</button><br>
     <form action="/addevent" method=post>
         <input type="text" id="eventtype" name="eventtype" value="Event" hidden>
         <div class="form-group">
-         <label for="text-box" style="color: black; font-weight: bold;">Register Number</label>
+         <label for="text-box" style="color: black; font-weight: bold;" aria-readonly="true">Register Number</label>
          <input name="regno" type="text"  class = "form-control" id="text-box" value="<%= registernumber %>" >
         </div>
 
@@ -31,7 +31,6 @@
         </div>
 
         <div id="eventsdetails">
-          
         <div class="form-group">
             <label for="text-box" style="color: black; font-weight: bold;">Venue</label>
             <input type="text" name="eventlocation" class="form-control" id="text-box" autocomplete="off">
@@ -44,7 +43,29 @@
             <label for="text-box" style="color: black; font-weight: bold;">Email for Reminder</label>
             <input type="email" name="reminderemail" class="form-control" id="text-box" autocomplete="off">
           </div>
+        </div><hr>
+        <div class="form-group">
+          <label for="text-box" style="color: black; font-weight: bold;">When do you want to get remainder ?</label>
         </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="reminderdate" value="1hour" id="flexRadioDefault1">
+          <label class="form-check-label" for="flexRadioDefault1">
+            One hour
+          </label>
+        </div><br>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="reminderdate" id="flexRadioDefault2" value="3hour" >
+          <label class="form-check-label" for="flexRadioDefault2">
+            Three hour
+          </label>
+        </div><br>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="reminderdate" id="flexRadioDefault2" value="1day" checked>
+          <label class="form-check-label" for="flexRadioDefault2">
+            One day
+          </label>
+        </div><br>
+        
         <button type="submit" class="btn btn-primary">Add the event</button>
     </form>
 </div>
