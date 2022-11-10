@@ -2,13 +2,11 @@
 <%- include("partials/navbar3", {active:"AdminForum"}) %>
 
 <% if(failure) { %>
-    <div class="alert alert-danger" role="alert">
+    <div style ="margin-left:15%;float: left;" class="alert alert-danger" role="alert">
         <%= msg %>
     </div>
 <% } %>
 
-
-    
     <!-- <header class="site-header">
         <div class="header-bar">
             <div class="container-fluid">
@@ -26,20 +24,22 @@
             </div>
         </div>
     </header> -->
-  
     <main style="margin-top: 58px">
         <div class="container pt-4">
     <div class="main-content">
         <div class="container">
             <div class="entry-header">
+                <div class="alert alert-info" role="alert" style="width: 80%;">
+                    For only posting one leave other blank
+                </div>
                 <div class="entry-title">
                     <h3> Announce a information</h3><br>
-                    <form class = "question-form" action="/adminforum" method= "post" enctype="multipart/form-data">
+                    <form class = "question-form" action="/adminforum" method= "post" >
                         <div class ="txtb">
                             <textarea name = "news" id="news" rows="8" cols="90" placeholder = "Enter your information" ></textarea>
                         </div><br>
                         <div class="txtb">
-                            <input name="createdAt" id="createdAt" type="date" placeholder="Enter date" required>
+                            <input name="createdAt" id="createdAt" type="date" placeholder="Enter date" >
                         </div><br>
                         <div class="txtb">
                             <input name="url" id ="url" type="url" placeholder="Paste url if any" >
