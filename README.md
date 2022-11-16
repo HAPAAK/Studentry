@@ -23,8 +23,7 @@ Steps to run this project
 
 2. open the project with code editor ( visual studio code recommended)
 3. Since notification module need api key:
-	api key:
-	-const API_KEY = "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";
+	-const API_KEY = create an account in sendgrid which provide unique api key for you
 	copy this api key on the top of mail.js file
 	
 4. Run the project by following command on terminal of VSC:
