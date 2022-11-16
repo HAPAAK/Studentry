@@ -29,5 +29,5 @@ const reminderschema = new mongoose.Schema({
         ref:"appointments"
     }
 })
-const Allremainder = new mongoose.model("remainders",reminderschema);
-module.exports = Allremainder;
+const Allreminder = new mongoose.model("reminders",reminderschema);
+module.exports = Allreminder;
