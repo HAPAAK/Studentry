@@ -695,6 +695,7 @@ app.get("/deleteevent",async(req,res)=>{
         const deleteevent = await AddEvent.deleteOne({_id:req.query.eventid});
         //0console.log(deleteevent);
         let userevent = await UserEvent.findOne({regno:registernumber});
+        await Allremainder.deleteOne({_id:req.query.eventid});
         await UserEvent.updateOne({_id:userevent._id},{$pull: {events:req.query.eventid}},function(err,docs){
             if(err){
                 failure=true;
