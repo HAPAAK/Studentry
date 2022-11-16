@@ -1,10 +1,12 @@
 
 const Allreminder = require("./db/models/reminders");
 const sgMail = require('@sendgrid/mail');
+
 sgMail.setApiKey(API_KEY);
 const cron = require("node-cron");
 
 async function mailsenderfunction(allreminderevent){
+  //console.log(allreminderevent);
   const createdBy = allreminderevent.createdBy;
   const remindertype = allreminderevent.remindertype;
   const senderemail1 = allreminderevent.beneficiaryemail;
@@ -12,24 +14,31 @@ async function mailsenderfunction(allreminderevent){
   let remindertext;
   if(remindertype==="Event"){
     const event = await allreminderevent.populate("events");
-    originaldate = event.eventdate;
-    remindertext = `You have a event titled: ${event.eventname} at ${originaldate}`;
-  }else if (remindertype == "Appointment"){
-    const appointment = await allreminderevent.populate("appointment");
-    originaldate = appointment.date;
-    remindertext = `You have a appointment on: ${appointment.venue_type} at ${originaldate} with your counsellor ${createdBy}`;
+    const d = new Date(event.events.eventdate);
+    originaldate= d.toLocaleString();
+    remindertext = `You have a event titled: ${event.events.eventname} at ${originaldate}`;
+  }else if (remindertype === "Appointment"){
+    const appointments = await allreminderevent.populate("appointment");
+    const d  = new Date(appointments.appointment.date);
+    originaldate = d.toLocaleString();
+    remindertext = `You have a appointment on: ${appointments.appointment.venue_type} at ${originaldate} with your counsellor ${createdBy}`;
   }
+  //console.log(createdBy+ originaldate+senderemail1+remindertext);
   const msg = {
     to: senderemail1,
     from: 'mahseratokpas118@gmail.com', // Use the email address or domain you verified above
-    subject: `Reminder for your ${remindertype}`,
+    subject: `Reminder for your ${remindertype} ${remindertext}`,
     text:remindertext,
-    html: '<strong>{{remindertext}}</strong>',
+    html: '<strong>This is an reminder for you due activities.</strong>',
   };
+  console.log(msg);
   //ES8
   (async () => {
     try {
+      console.log("hello");
       await sgMail.send(msg);
+      await Allreminder.deleteOne({_id:allreminderevent._id});
+      console.log("Mail sent");
     } catch (error) {
       console.error(error);
       
@@ -37,7 +46,7 @@ async function mailsenderfunction(allreminderevent){
         console.error(error.response.body)
       }
     }
-  });
+  })();
 }
 async function check_eventfor_reminder(){
   const allreminderevents = await Allreminder.find({});
