@@ -1,7 +1,6 @@
 
 const Allreminder = require("./db/models/reminders");
 const sgMail = require('@sendgrid/mail');
-const API_KEY = "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";
 sgMail.setApiKey(API_KEY);
 const cron = require("node-cron");
 
