@@ -260,7 +260,8 @@ body {
 # site-header
 ------------------------------------------------------------*/
 .home-page {
-    background: url(images/middle-cover.jpg) no-repeat;
+    background: url(/uploads/index.jpeg);
+    background-attachment: fixed;  
 }
 
 .site-header {

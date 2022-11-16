@@ -434,7 +434,6 @@ app.post("/bookappointment",async(req,res)=>{
        const appointdetails = new Appointment({
             createdBy:counselloremail,
             date:req.body.appoint_date,
-            time:req.body.appoint_time,
             venue_type:req.body.appoint_type,
             venue:req.body.appoint_venue,
             beneficiary:req.body.beneficiary,
@@ -442,6 +441,7 @@ app.post("/bookappointment",async(req,res)=>{
        })
        await appointdetails.save();
        const d = new Date(req.body.appoint_date);
+       //reminderdate is string telling when to schedule
        var reminderdate = req.body.reminderdate;
        if (reminderdate === "1hour"){
         d.setTime(d.getTime()-60*60*1000);
@@ -450,12 +450,14 @@ app.post("/bookappointment",async(req,res)=>{
        }else{
         d.setDate(d.getDate()-1);
        }
+       console.log(d);
+       const counselee = StudentRegister.findOne({registration_number:req.body.beneficiary});
         const remainder = new Allremainder({
             createdAt:Date.now(),
             reminderdate:d,
             remindertype:"Appointment",
             createdBy:counselloremail,
-            beneficiaryemail:req.body.beneficiary,
+            beneficiaryemail:counselee.email,
             appointment:appointdetails._id
         })
         await remainder.save();
@@ -628,6 +630,7 @@ app.post("/addevent",async(req,res)=>{
         //let userevent;
         console.log(req.body);
         const d = new Date(req.body.eventdate);
+        //reminderdate is string telling when to schedule
         var reminderdate = req.body.reminderdate;
         if (reminderdate == "1hour"){
          d.setTime(d.getTime()-60*60*1000);

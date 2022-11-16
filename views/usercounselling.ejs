@@ -147,14 +147,14 @@
                         </div>    -->
                         <% if(msg.from === "counsellor") { %>
                         <div class="container2">
-                            <img src="images/professor.png" alt="Avatar">
+                            <img src="/uploads/professor.png" alt="Avatar">
                             <h4><%= msg.By %></h4>
                             <p><%= msg.context %></p>
                             <span class="time-right"><%= msg.createdAt.toLocaleDateString() %></span>
                           </div>
                           <% } else { %>
                           <div class="container2 darker">
-                            <img src="images/student.jpg" alt="Avatar" class="right">
+                            <img src="/uploads/student.jpg" alt="Avatar" class="right">
                             <h4><%= msg.By %></h4>
                             <p><%= msg.context %></p>
                             <span class="time-right"><%= msg.createdAt.toLocaleDateString() %></span>
