@@ -6,11 +6,13 @@ install the following npm packages:
 2. dotenv
 3. ejs
 4. express
-5. mongodb
+5. mongoose
 6. multer
 7. nodemon
-
-To run type node app.js || with nodemon type npm run dev
+8. node cron
+9. @sendgrid/mail
+10. bcrypt
+11. connect-mongo
 
 Steps to run this project
 
