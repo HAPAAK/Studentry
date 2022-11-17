@@ -26,7 +26,7 @@ Steps to run this project
 2. open the project with code editor ( visual studio code recommended)
 3. Since notification module need api key:
 	-const API_KEY = create an account in sendgrid which provide unique api key for you
-	copy this api key on the top of mail.js file
+	copy this api key on the top of mail.js file and also change from mail id part to whichever mail id you have choosed to create sendgrid single sender verification
 	
 4. Run the project by following command on terminal of VSC:
 	- npm run dev
